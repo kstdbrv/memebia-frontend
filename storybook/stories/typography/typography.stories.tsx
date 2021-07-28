@@ -1,13 +1,16 @@
-import "react-native-gesture-handler"
+import {Typography} from "../../../app/features/common/styles/typography"
+import {withKnobs} from "@storybook/addon-knobs"
+import {storiesOf} from "@storybook/react-native"
+import React from "react"
+import {Text, View, StyleSheet} from "react-native"
+import CenterView from "../center-view"
 
-import {StyleSheet, View, Text} from "react-native"
-import * as React from "react"
-import {NavigationContainer} from "@react-navigation/native"
-import {Typography} from "./features/common/styles/typography"
-
-export default function App(): JSX.Element {
-  return (
-    <NavigationContainer>
+storiesOf("Typography", module)
+  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+  .addDecorator(withKnobs)
+  .add("Default", () => <Text>Text goes to here</Text>)
+  .add("Custom style", () => {
+    return (
       <View style={styles.container}>
         <Text style={styles.textTitle}>This is a title text</Text>
         <Text style={styles.textBody}>
@@ -16,9 +19,9 @@ export default function App(): JSX.Element {
         </Text>
         <Text style={styles.textFooter}>This is a plain tiny footer text.</Text>
       </View>
-    </NavigationContainer>
-  )
-}
+    )
+  })
+
 /* eslint-disable react-native/no-color-literals */
 const styles = StyleSheet.create({
   container: {
