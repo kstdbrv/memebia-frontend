@@ -1,9 +1,10 @@
+import {ButtonStyleProps} from "./button"
 import {COLORS} from "../../constants/colors"
 
 export const stylesButton = (
   color: "primary" | "transparent",
-  style: Record<string, number | string> | undefined,
-): Record<string, number | string> => {
+  style: ButtonStyleProps | undefined,
+): ButtonStyleProps => {
   return {
     alignItems: "center",
     borderRadius: 48,
@@ -16,8 +17,8 @@ export const stylesButton = (
 
 export const stylesButtonTitle = (
   color: "primary" | "transparent",
-  style: Record<string, number | string> | undefined,
-): Record<string, number | string> => {
+  style: ButtonStyleProps | undefined,
+): ButtonStyleProps => {
   return {
     fontSize: 16,
     lineHeight: 16,

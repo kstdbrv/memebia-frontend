@@ -1,12 +1,14 @@
 import React from "react"
-import {Pressable, PressableProps, Text} from "react-native"
+import {Pressable, PressableProps, Text, TextStyle} from "react-native"
 
 import {stylesButton, stylesButtonTitle} from "./button.styles"
+
+export type ButtonStyleProps = TextStyle
 
 interface ButtonProps extends PressableProps {
   color: "primary" | "transparent"
   title: string
-  style?: Record<string, number | string> | undefined
+  style?: ButtonStyleProps
 }
 
 export const Button: React.FC<ButtonProps> = ({color, title, style, onPress}) => {
