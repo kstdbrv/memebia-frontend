@@ -9,6 +9,7 @@ import {name as appName} from "./app.json"
 //
 // ⚠️ Leave this as `false` when checking into git.
 const SHOW_STORYBOOK = true
+// const SHOW_STORYBOOK = false
 
 let RootComponent = App
 if (__DEV__ && SHOW_STORYBOOK) {

@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import {Pressable, PressableProps, Text, TextStyle} from "react-native"
 
 import {stylesButton, stylesButtonTitle} from "./button.styles"
@@ -11,10 +11,16 @@ interface ButtonProps extends PressableProps {
   style?: ButtonStyleProps
 }
 
-export const Button: React.FC<ButtonProps> = ({color, title, style, onPress}) => {
+export const Button: React.FC<ButtonProps> = ({color, title, style, onPress, ...rest}) => {
+  const [isButtonPressed, changeIsButtonPressed] = useState(false)
+
   return (
-    <Pressable onPress={onPress} style={stylesButton(color, style)}>
-      <Text style={stylesButtonTitle(color, style)}>{title}</Text>
+    <Pressable
+      onPress={onPress}
+      onPressOut={() => changeIsButtonPressed(true)}
+      style={stylesButton(color, style, isButtonPressed)}
+      {...rest}>
+      <Text style={stylesButtonTitle(color, style, isButtonPressed)}>{title}</Text>
     </Pressable>
   )
 }
