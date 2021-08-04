@@ -13,9 +13,9 @@ export const stylesButton = (
     width: 327,
     backgroundColor: !isButtonPressed
       ? color === "primary"
-        ? COLORS.PRIMARY
+        ? COLORS.PRIMARY.BASE
         : COLORS.TRANSPARENT
-      : COLORS.SECONDARY,
+      : COLORS.PRIMARY.LIGHTER,
     ...style,
   }
 }
@@ -31,8 +31,8 @@ export const stylesButtonTitle = (
     color: !isButtonPressed
       ? color === "primary"
         ? COLORS.WHITE
-        : COLORS.PRIMARY
-      : COLORS.PRIMARY,
+        : COLORS.PRIMARY.BASE
+      : COLORS.PRIMARY.BASE,
     ...style,
   }
 }
