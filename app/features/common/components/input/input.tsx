@@ -9,7 +9,7 @@ export interface InputProps extends TextInputProps {
   rightIcon?: ImageSourcePropType
 }
 
-export const Input: React.FC<InputProps> = ({hasError, rightIcon, leftIcon, ...props}) => {
+export const Input: React.FC<InputProps> = ({hasError, rightIcon, leftIcon, style, ...props}) => {
   const [focused, setFocused] = React.useState(false)
   const styles = getInputStyles(focused, hasError, leftIcon, rightIcon)
 
@@ -17,7 +17,7 @@ export const Input: React.FC<InputProps> = ({hasError, rightIcon, leftIcon, ...p
   const handleBlur = useCallback(() => setFocused(false), [])
 
   return (
-    <View style={styles.inputContainer}>
+    <View style={[styles.inputContainer, style]}>
       {leftIcon && <Image source={leftIcon} style={styles.inputImage} />}
       <TextInput
         style={styles.input}
