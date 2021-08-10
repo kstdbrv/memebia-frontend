@@ -1,5 +1,6 @@
 import {ImageSourcePropType, StyleSheet} from "react-native"
 import {COLORS} from "../../constants/colors"
+import {Typography} from "../../styles/typography"
 
 type BorderStyle = {
   borderColor: string
@@ -35,8 +36,8 @@ export const getInputStyles = (
   return StyleSheet.create({
     input: {
       flex: 1,
-      fontSize: 16,
       height: 48,
+      ...Typography.Regular.None.Regular,
     },
     inputContainer: {
       alignItems: "center",
