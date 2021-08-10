@@ -1,12 +1,12 @@
 import React from "react"
 import {SafeAreaView} from "react-native-safe-area-context"
-import {Input} from "../../components/input"
-import {Button} from "../../components/button"
+import {Input} from "../../../common/components/input"
+import {Button} from "../../../common/components/button"
 import {LoginStyles} from "./login.style"
 import {KeyboardAvoidingView, Text, View} from "react-native"
-import {Typography} from "../../styles/typography"
+import {Typography} from "../../../common/styles/typography"
 
-export function Login(): JSX.Element {
+export function Login() {
   return (
     <SafeAreaView style={LoginStyles.container}>
       <KeyboardAvoidingView style={LoginStyles.container}>

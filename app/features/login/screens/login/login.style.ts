@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native"
-import {COLORS} from "../../constants/colors"
-import {Typography} from "../../styles/typography"
+import {COLORS} from "../../../common/constants/colors"
+import {Typography} from "../../../common/styles/typography"
 
 export const LoginStyles = StyleSheet.create({
   container: {
