@@ -8,10 +8,14 @@ export const COLORS = {
   },
   RED: {
     BASE: "#FF5247",
+    LIGHT: "#FF6D6D",
   },
   SKY: {
     LIGHT: "#e3e5e5",
   },
   TRANSPARENT: "transparent",
   WHITE: "#fff",
+  GREEN: {
+    LIGHT: "#4CD471",
+  },
 }
