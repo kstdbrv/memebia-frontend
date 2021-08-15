@@ -2,7 +2,7 @@ import React, {FC} from "react"
 import {styles} from "./item-render.style"
 import {View, Text, TouchableOpacity, Image} from "react-native"
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const imageRight = require("../../../../../../assets/images/arrow.png")
+const imageRight = require("../../../../../../../assets/images/arrow.png")
 
 interface Props {
   title: string | undefined

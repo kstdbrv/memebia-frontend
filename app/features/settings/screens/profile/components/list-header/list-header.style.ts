@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native"
-import {COLORS} from "../../../../common/constants/colors"
-import {Typography} from "../../../../common/styles/typography"
+import {COLORS} from "../../../../../common/constants/colors"
+import {Typography} from "../../../../../common/styles/typography"
 
 export const styles = StyleSheet.create({
   title: {

@@ -4,13 +4,13 @@ import {NavigationContainer} from "@react-navigation/native"
 import {createNativeStackNavigator} from "@react-navigation/native-stack"
 import {Login} from "./features/login/screens/login"
 import {Typography} from "./features/common/styles/typography"
-import {Settings} from "./features/settings/screens/settings/settings"
+import {Settings} from "./features/settings/screens/settings"
 import {Profile} from "./features/settings/screens/profile"
 
 export type RootStackParamList = {
   Login: undefined
-  Settings: undefined
   Profile: undefined
+  Settings: undefined
 }
 
 const {Navigator, Screen} = createNativeStackNavigator<RootStackParamList>()
