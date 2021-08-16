@@ -2,9 +2,9 @@ import React, {FC} from "react"
 import {styles} from "./profile.styles"
 import {SectionList} from "react-native"
 import {firstName, lastName, location, email, language} from "./constants"
-import {ProfileHeader} from "./components/profile-header/profile-header"
-import {ItemRender} from "./components/item-render/item-render"
-import {ListHeader} from "./components/list-header/list-header"
+import {ProfileHeader} from "./components/profile-header"
+import {ItemProfileRender} from "./components/item-profile-render"
+import {ListProfileHeader} from "./components/list-profile-header"
 
 export const Profile: FC = (): JSX.Element => {
   /* eslint-disable @typescript-eslint/no-empty-function */
@@ -61,14 +61,14 @@ export const Profile: FC = (): JSX.Element => {
       sections={PROFILE_SCREEN_DATA}
       keyExtractor={({title}, index) => title + index}
       renderItem={({item}) => (
-        <ItemRender
+        <ItemProfileRender
           title={item.title}
           onPress={item.onPress}
           payload={item.payload}
           placeholder={item.placeholder}
         />
       )}
-      renderSectionHeader={({section: {title}}) => title && <ListHeader title={title} />}
+      renderSectionHeader={({section: {title}}) => title && <ListProfileHeader title={title} />}
       ListHeaderComponent={ProfileHeader}
     />
   )

@@ -1,5 +1,5 @@
 import React, {FC} from "react"
-import {styles} from "./item-render.style"
+import {styles} from "./item-profile-render.style"
 import {View, Text, TouchableOpacity, Image} from "react-native"
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const imageRight = require("../../../../../../../assets/images/arrow.png")
@@ -11,7 +11,7 @@ interface Props {
   placeholder: string
 }
 
-export const ItemRender: FC<Props> = props => (
+export const ItemProfileRender: FC<Props> = props => (
   <TouchableOpacity style={styles.container} onPress={props.onPress}>
     {!(props.title === "Language") ? (
       <Text style={styles.title}>{props.title}</Text>
