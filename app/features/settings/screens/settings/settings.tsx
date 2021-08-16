@@ -4,7 +4,7 @@ import {View, SectionList, useWindowDimensions} from "react-native"
 import {Button} from "../../../common/components/button/button"
 import {ListSettingsHeader} from "../settings/components/list-settings-header"
 import {ItemSettings} from "./components/item-settings"
-import {extractKeyFromItem} from "../utils/utils.settings"
+import {extractKeyFromItem} from "../utils/settings.utils"
 
 export const Settings: FC = (): JSX.Element => {
   const window = useWindowDimensions()
