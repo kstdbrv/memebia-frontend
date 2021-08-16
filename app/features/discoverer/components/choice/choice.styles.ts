@@ -1,6 +1,7 @@
 import {StyleSheet} from "react-native"
 
 import {CHOICE_CONTAINER_BG_COLOR} from "./constants"
+import {Typography} from "../../../common/styles/typography"
 
 export const styles = StyleSheet.create({
   choiceContainer: {
@@ -10,8 +11,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   choiceText: {
-    fontSize: 48,
-    fontWeight: "bold",
+    ...Typography.Title_1,
     textTransform: "uppercase",
   },
 })

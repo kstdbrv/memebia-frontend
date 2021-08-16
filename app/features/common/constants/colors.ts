@@ -4,6 +4,8 @@ export const COLORS = {
   },
   PRIMARY: {
     BASE: "#6B4EFF",
+    DARK: "#5538EE",
+    LIGHTEST: "#E7E7FF",
     LIGHTER: "#C6C4FF",
   },
   RED: {
@@ -12,6 +14,8 @@ export const COLORS = {
   },
   SKY: {
     LIGHT: "#e3e5e5",
+    DARK: "#979C9E",
+    BASE: "#CDCFD0",
   },
   TRANSPARENT: "transparent",
   WHITE: "#fff",

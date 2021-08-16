@@ -11,7 +11,7 @@ import {
   POSITIVE_TOUCH_HEIGHT,
   NEGATIVE_TOUCH_HEIGHT,
 } from "./constants"
-import {ACTIONS_OFFSET, HEIGHT_CARD} from "../meme-card/constants"
+import {ACTIONS_OFFSET, HEIGHT_CARD} from "../meme-card/meme-card.constants"
 
 type MemeType = {
   name: string
@@ -30,6 +30,7 @@ export const Swipe: FC<SwipePropsType> = ({memes}) => {
   const tiltSign = useRef(new Animated.Value(1)).current
 
   useEffect(() => {
+    // todo
     if (!memesToDisplay.length) {
       setMemesToDisplay(memes)
     }
@@ -76,23 +77,21 @@ export const Swipe: FC<SwipePropsType> = ({memes}) => {
 
   return (
     <View style={styles.swipeContainer}>
-      {memesToDisplay
-        .map(({name, source}, index) => {
-          const isFirst = index === 0
-          const dragHandlers = isFirst ? panResponder.panHandlers : {}
+      {memesToDisplay.map(({name, source}, index) => {
+        const isFirst = index === 0
+        const dragHandlers = isFirst ? panResponder.panHandlers : {}
 
-          return (
-            <MemeCard
-              key={name}
-              source={source}
-              isFirst={isFirst}
-              swipe={swipe}
-              tiltSign={tiltSign}
-              {...dragHandlers}
-            />
-          )
-        })
-        .reverse()}
+        return (
+          <MemeCard
+            key={name}
+            source={source}
+            isFirst={isFirst}
+            swipe={swipe}
+            tiltSign={tiltSign}
+            {...dragHandlers}
+          />
+        )
+      })}
     </View>
   )
 }

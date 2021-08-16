@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native"
 
-import {WIDTH_CARD, HEIGHT_CARD, BORDER_RADIUS_CARD} from "./constants"
+import {WIDTH_CARD, HEIGHT_CARD, BORDER_RADIUS_CARD} from "./meme-card.constants"
 
 export const styles = StyleSheet.create({
   choiceContainer: {
