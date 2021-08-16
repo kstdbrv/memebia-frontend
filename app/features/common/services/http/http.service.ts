@@ -81,3 +81,5 @@ export class HttpService {
     this.axiosService.interceptors.response.eject(id)
   }
 }
+
+export const backendServiceSingleton = new HttpService()

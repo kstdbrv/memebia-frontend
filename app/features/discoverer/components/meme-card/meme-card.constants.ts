@@ -3,11 +3,9 @@ import {Dimensions} from "react-native"
 const {height, width} = Dimensions.get("screen")
 
 export const ACTIONS_OFFSET = 100
-export const POSITIVE_DELAY_ANIMATION_DISPLAY = 10
-export const NEGATIVE_DELAY_ANIMATION_DISPLAY = -10
-export const OUTPUT_RANGE_INDEGRESS_1 = "9deg"
-export const OUTPUT_RANGE_INDEGRESS_2 = "0deg"
-export const OUTPUT_RANGE_INDEGRESS_3 = "-8deg"
+export const LIKE_X_OFFSET = 10
+export const DISLIKE_X_OFFSET = -10
+export const ROTATE_RANGE = ["9deg", "0deg", "-8deg"]
 export const POSITIVE_REACTION = "LIKE"
 export const NEGATIVE_REACTION = "NOPE"
 export const WIDTH_CARD = width * 0.9
