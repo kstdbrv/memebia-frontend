@@ -3,7 +3,7 @@ import {styles} from "./settings.style"
 import {View, SectionList, useWindowDimensions} from "react-native"
 import {Button} from "../../../common/components/button/button"
 import {ListSettingsHeader} from "../settings/components/list-settings-header"
-import {ItemSettingsRender} from "./components/item-settings-render"
+import {ItemSettings} from "./components/item-settings"
 
 export const Settings: FC = (): JSX.Element => {
   const window = useWindowDimensions()
@@ -52,7 +52,7 @@ export const Settings: FC = (): JSX.Element => {
       sections={SETTINGS_SCREEN_DATA}
       keyExtractor={({title}, index) => title + index}
       renderItem={({item}) => (
-        <ItemSettingsRender title={item.title} onPress={item.onPress} image={item.image} />
+        <ItemSettings title={item.title} onPress={item.onPress} image={item.image} />
       )}
       renderSectionHeader={({section: {title}}) => <ListSettingsHeader title={title} />}
       ListFooterComponent={
