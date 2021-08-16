@@ -1,34 +1,51 @@
 import React from "react"
 import {SafeAreaView} from "react-native-safe-area-context"
-import {Input} from "../../../common/components/input"
-import {Button} from "../../../common/components/button"
-import {LoginStyles} from "./login.style"
-import {KeyboardAvoidingView, Text, View} from "react-native"
-import {Typography} from "../../../common/styles/typography"
+import {Button, Input} from "@features/common/components"
+import {loginStyles} from "./login.styles"
+import {KeyboardAvoidingView, Platform, ScrollView, Text} from "react-native"
+import {useLoginController} from "@features/login/screens/login/login.controller"
 
 export function Login() {
+  const {emailField, passwordField, onLoginClick} = useLoginController()
   return (
-    <SafeAreaView style={LoginStyles.container}>
-      <KeyboardAvoidingView style={LoginStyles.container}>
-        <View>
+    <SafeAreaView style={loginStyles.fillContainer}>
+      <KeyboardAvoidingView
+        style={loginStyles.fillContainer}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={loginStyles.scrollView}
+          bounces={false}>
+          <Text style={loginStyles.inputLabel}>Email</Text>
           <Input
-            placeholder="email"
-            styleContainer={LoginStyles.input}
-            keyboardType={"email-address"}
+            ref={emailField.ref}
+            placeholder="Enter your email"
+            style={loginStyles.input}
+            keyboardType="email-address"
+            textContentType="emailAddress"
+            onSubmitEditing={emailField.handleSubmitEditing}
+            returnKeyType="next"
+            autoCapitalize="none"
           />
-          <Input placeholder="password" styleContainer={LoginStyles.input} secureTextEntry={true} />
-          <Button color="transparent" title="Forgot password?" style={LoginStyles.passwordButton} />
-        </View>
-        <View>
-          <View style={LoginStyles.textView}>
-            <Text style={Typography.Small.Normal.Regular}>By continuing, you agree to our </Text>
-            <Button color="transparent" title="Terms of Service " style={LoginStyles.textButton} />
-            <Text style={Typography.Small.Normal.Regular}>and</Text>
-            <Button color="transparent" title=" Privacy Policy" style={LoginStyles.textButton} />
-            <Text style={Typography.Small.Normal.Regular}>.</Text>
-          </View>
-          <Button color={"primary"} title={"Log in"} />
-        </View>
+          <Text style={loginStyles.inputLabel}>Password</Text>
+
+          <Input
+            ref={passwordField.ref}
+            placeholder="Enter your password"
+            style={loginStyles.input}
+            secureTextEntry={true}
+            textContentType="password"
+            onSubmitEditing={passwordField.handleSubmitEditing}
+            returnKeyType="done"
+            autoCapitalize="none"
+          />
+          <Button
+            onPress={onLoginClick}
+            style={loginStyles.loginButton}
+            color="primary"
+            title="Log in"
+          />
+        </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   )
