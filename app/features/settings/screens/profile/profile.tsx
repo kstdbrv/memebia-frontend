@@ -3,8 +3,9 @@ import {styles} from "./profile.styles"
 import {SectionList} from "react-native"
 import {firstName, lastName, location, email, language} from "./constants"
 import {ProfileHeader} from "./components/profile-header"
-import {ItemProfileRender} from "./components/item-profile-render"
+import {ItemProfile} from "./components/item-profile"
 import {ListProfileHeader} from "./components/list-profile-header"
+import {extractKeyFromItem} from "../utils/settings.utils"
 
 export const Profile: FC = (): JSX.Element => {
   /* eslint-disable @typescript-eslint/no-empty-function */
@@ -14,20 +15,23 @@ export const Profile: FC = (): JSX.Element => {
         {
           title: "First name",
           onPress: () => {},
-          payload: firstName,
+          profileItemData: firstName,
           placeholder: "enter first name",
+          rightText: true,
         },
         {
           title: "Last name",
           onPress: () => {},
-          payload: lastName,
+          profileItemData: lastName,
           placeholder: "enter last name",
+          rightText: true,
         },
         {
           title: "Location",
           onPress: () => {},
-          payload: location,
+          profileItemData: location,
           placeholder: "enter your location",
+          rightText: true,
         },
       ],
     },
@@ -37,8 +41,9 @@ export const Profile: FC = (): JSX.Element => {
         {
           title: "Email",
           onPress: () => {},
-          payload: email,
+          profileItemData: email,
           placeholder: "enter your email",
+          rightText: true,
         },
       ],
     },
@@ -48,8 +53,9 @@ export const Profile: FC = (): JSX.Element => {
         {
           title: "Language",
           onPress: () => {},
-          payload: language,
+          profileItemData: language,
           placeholder: "",
+          rightText: false,
         },
       ],
     },
@@ -59,13 +65,14 @@ export const Profile: FC = (): JSX.Element => {
     <SectionList
       style={styles.container}
       sections={PROFILE_SCREEN_DATA}
-      keyExtractor={({title}, index) => title + index}
+      keyExtractor={extractKeyFromItem}
       renderItem={({item}) => (
-        <ItemProfileRender
+        <ItemProfile
           title={item.title}
           onPress={item.onPress}
-          payload={item.payload}
+          profileItemData={item.profileItemData}
           placeholder={item.placeholder}
+          rightText={item.rightText}
         />
       )}
       renderSectionHeader={({section: {title}}) => title && <ListProfileHeader title={title} />}

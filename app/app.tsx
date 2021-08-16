@@ -1,51 +1,54 @@
-import "react-native-gesture-handler"
+/* import "react-native-gesture-handler"
 import * as React from "react"
 import {NavigationContainer} from "@react-navigation/native"
 import {createNativeStackNavigator} from "@react-navigation/native-stack"
-import {Login} from "./features/login/screens/login"
-import {Typography} from "./features/common/styles/typography"
-import {Settings} from "./features/settings/screens/settings"
-import {Profile} from "./features/settings/screens/profile"
+import {Login} from "@features/login/screens/login"
+import {COLORS} from "@features/common/constants/colors"
+import {SafeAreaProvider} from "react-native-safe-area-context"
+import {useAuthStore} from "@features/auth/stores/auth/auth.hooks"
+import {useEffect} from "react"
+import {Observer} from "mobx-react-lite"
 
-export type RootStackParamList = {
-  Login: undefined
-  Profile: undefined
-  Settings: undefined
-}
+const RootStack = createNativeStackNavigator()
 
-const {Navigator, Screen} = createNativeStackNavigator<RootStackParamList>()
+export function App() {
+  const authStore = useAuthStore()
 
-const App: React.FC = (): JSX.Element => {
+  useEffect(() => {
+    authStore.restoreSession()
+    // hide splash screen
+  }, [])
+
+  if (authStore.isLogged === null) {
+    // Show splash screen
+    return null
+  }
+
   return (
-    <NavigationContainer>
-      <Navigator
-        screenOptions={{
-          ...Typography.Large.None,
-        }}>
-        <Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerTitle: "Log in",
-          }}
-        />
-        <Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            headerTitle: "My details",
-          }}
-        />
-        <Screen
-          name="Settings"
-          component={Settings}
-          options={{
-            headerTitle: "Settings",
-          }}
-        />
-      </Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <RootStack.Navigator
+          screenOptions={{
+            contentStyle: {
+              backgroundColor: COLORS.WHITE,
+            },
+          }}>
+          <RootStack.Screen
+            name="Login"
+            component={Login}
+            options={{
+              headerTitle: "Log in",
+              headerShadowVisible: false,
+            }}
+          />
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   )
 }
 
-export default App
+function ObservableApp() {
+  return <Observer render={App} />
+}
+
+export default ObservableApp */

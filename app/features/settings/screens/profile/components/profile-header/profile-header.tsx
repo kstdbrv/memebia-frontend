@@ -8,6 +8,6 @@ const profilePhoto = require("../../images/profile-photo.png")
 export const ProfileHeader = (): JSX.Element => (
   <View style={styles.container}>
     <Image style={styles.profilePhoto} source={profilePhoto} />
-    <Button style={styles.button} color="primary" title="Change" />
+    <Button color="secondary" title="Change" />
   </View>
 )

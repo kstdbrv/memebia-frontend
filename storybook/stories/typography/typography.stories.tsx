@@ -11,7 +11,7 @@ storiesOf("Typography", module)
   .add("Default", () => <Text>Text goes to here</Text>)
   .add("Custom style", () => {
     return (
-      <View style={styles.container}>
+      <View style={styles.safeAreaContainer}>
         <Text style={styles.textTitle}>This is a title text</Text>
         <Text style={styles.textBody}>
           This is a plain body text. This is a plain body text. This is a plain body text. This is a
@@ -24,7 +24,7 @@ storiesOf("Typography", module)
 
 /* eslint-disable react-native/no-color-literals */
 const styles = StyleSheet.create({
-  container: {
+  safeAreaContainer: {
     alignItems: "center",
     backgroundColor: "#373AF5",
     flex: 1,
