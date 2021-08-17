@@ -1,19 +1,30 @@
+import AsyncStorage from "@react-native-async-storage/async-storage"
+
 export class KeychainService {
   async saveTokens(payload: {accessToken: string; refreshToken: string}): Promise<void> {
-    // use AsyncStorage to save tokens
+    try {
+      await AsyncStorage.setItem("key", JSON.stringify(payload))
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   async restoreTokens(): Promise<{accessToken: string; refreshToken: string} | null> {
-    return null
+    const jsonTokens = await AsyncStorage.getItem("key")
+    return jsonTokens ? JSON.parse(jsonTokens) : null
   }
 
   async getRefreshToken(): Promise<string> {
-    // use AsyncStorage to extract token
-    return "none"
+    const jsonTokens = await AsyncStorage.getItem("key")
+    return jsonTokens ? JSON.parse(jsonTokens).refreshToken : "none"
   }
 
   async clear(): Promise<void> {
-    // remove tokens from store
+    try {
+      await AsyncStorage.clear()
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 }
 
