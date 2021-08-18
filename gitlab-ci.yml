@@ -1,0 +1,25 @@
+image: node:12.18.3
+stages:
+  - build
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+before_script:
+  - yarn sh util/generate-dotenv.sh > .env
+
+build:android:package:
+  stage: build
+  image: reactnativecommunity/react-native-android
+  script:
+    - cd android
+    - yarn run bundle --no-daemon
+  artifacts:
+    paths:
+      - ./android/app/build/
+      - ./android/app/src/main/assets/
