@@ -13,6 +13,7 @@ build:android:package:
   only:
     - merge_requests
   script:
+    - yarn install --frozen-lockfile
     - cd android
     - yarn react-native bundle --entry-file index.js --bundle-output bundle.js
   artifacts:
