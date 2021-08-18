@@ -1,17 +1,34 @@
-export class LoggerService {
-  // use npm package  "react-native-logs" to save log in file
-  // but for when __DEV__ === true use console instead
+import {logger, fileAsyncTransport} from "react-native-logs"
+import RNFS from "react-native-fs"
 
-  log(message: string): void {
-    return undefined
+export class LoggerService {
+  private log: ReturnType<typeof logger.createLogger> | Console
+  constructor() {
+    if (__DEV__) {
+      this.log = console
+    } else {
+      this.log = logger.createLogger({
+        transport: fileAsyncTransport,
+        severity: "info",
+        transportOptions: {
+          colors: `ansi`,
+          FS: RNFS,
+          fileName: "log.txt",
+        },
+      })
+    }
   }
 
   info(message: string): void {
-    return undefined
+    this.log.info(message)
   }
 
-  error(e: unknown): void {
-    return undefined
+  warn(warn: unknown): void {
+    this.log.warn(warn)
+  }
+
+  error(error: unknown): void {
+    this.log.error(error)
   }
 }
 
