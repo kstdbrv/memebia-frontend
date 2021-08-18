@@ -7,18 +7,14 @@ cache:
   paths:
     - node_modules/
 
-variables:
-  DOCKER_DRIVER: overlay2
-
-before_script:
-  - yarn sh util/generate-dotenv.sh > .env
-
 build:android:package:
   stage: build
   image: reactnativecommunity/react-native-android
+  only:
+    - merge_requests
   script:
     - cd android
-    - yarn run bundle --no-daemon
+    - yarn react-native bundle --entry-file index.js --bundle-output bundle.js
   artifacts:
     paths:
       - ./android/app/build/
