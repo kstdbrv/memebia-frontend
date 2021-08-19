@@ -11,52 +11,23 @@ export class HttpService {
   }
 
   post<T>(url: string, data: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.axiosService
-      .post(url, data, config)
-      .then(response => response.data)
-      .catch(error => console.log(error))
+    return this.axiosService.post<T>(url, data, config)
   }
 
   patch<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.axiosService
-      .patch(url, data, config)
-      .then(response => response.data)
-      .catch(error => console.log(error))
+    return this.axiosService.patch<T>(url, data, config)
   }
 
   delete(url: string, config?: AxiosRequestConfig): Promise<number | void> {
-    return this.axiosService
-      .delete(url, config)
-      .then(response => response.status)
-      .catch(error => console.log(error))
-  }
-
-  head<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.axiosService
-      .head(url, config)
-      .then(response => response.headers)
-      .catch(error => console.log(error))
+    return this.axiosService.delete(url, config)
   }
 
   put<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.axiosService
-      .put(url, data, config)
-      .then(response => response.data)
-      .catch(error => console.log(error))
-  }
-
-  options<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.axiosService
-      .options(url, config)
-      .then(response => response.headers)
-      .catch(error => console.log(error))
+    return this.axiosService.put<T>(url, data, config)
   }
 
   request<T>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.axiosService
-      .request(config)
-      .then(response => response.data)
-      .catch(error => console.log(error))
+    return this.axiosService.request<T>(config)
   }
 
   addRequestInterceptor(
@@ -82,4 +53,8 @@ export class HttpService {
   }
 }
 
-export const backendServiceSingleton = new HttpService()
+export const backendServiceSingleton = new HttpService(
+  AxiosLibrary.create({
+    baseURL: "https://api.memebia.com",
+  }),
+)

@@ -1,29 +1,22 @@
 import {backendServiceSingleton, HttpService} from "@features/common/services/http/http.service"
+import {
+  LoginRequest,
+  LoginResponse,
+  RefreshRequest,
+  RefreshResponse,
+} from "@features/auth/services/auth/auth.types"
 
 export class AuthService {
   constructor(private readonly httpService: HttpService = backendServiceSingleton) {}
 
-  // create types in auth.types.ts
-  async refreshToken(payload: {
-    token: string
-  }): Promise<{accessToken: string; refreshToken: string}> {
-    // use httpService to make requests and return new tokens
-    return {
-      accessToken: "",
-      refreshToken: "",
-    }
+  async refreshToken(payload: RefreshRequest): Promise<RefreshResponse> {
+    const response = await this.httpService.post<RefreshResponse>("/auth/refresh", payload)
+    return response.data
   }
 
-  // create types in auth.types.ts
-  async login(payload: {
-    email: string
-    password: string
-  }): Promise<{accessToken: string; refreshToken: string}> {
-    // use httpService to make requests and return new tokens
-    return {
-      accessToken: "",
-      refreshToken: "",
-    }
+  async login(payload: LoginRequest): Promise<LoginResponse> {
+    const response = await this.httpService.post<LoginResponse>("/auth/login", payload)
+    return response.data
   }
 }
 

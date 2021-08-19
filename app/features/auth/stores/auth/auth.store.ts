@@ -28,6 +28,13 @@ export class AuthStore {
       this.isLogged = true
     })
   }
+
+  async logout(): Promise<void> {
+    await this.tokensStore.clear()
+    runInAction(() => {
+      this.isLogged = false
+    })
+  }
 }
 
 export const authStoreSingleton = new AuthStore()
