@@ -1,5 +1,6 @@
 import "./welcome/welcome.stories"
 import "./button/button.stories"
 import "./input/input.stories"
+import "./login/login.stories"
 import "./swipe/swipe.stories"
 import "./settings/settings.stories"
