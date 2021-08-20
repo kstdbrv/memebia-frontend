@@ -9,14 +9,8 @@ cache:
 
 build:android:package:
   stage: build
-  image: reactnativecommunity/react-native-android
   only:
     - merge_requests
   script:
     - yarn install --frozen-lockfile
-    - cd android
     - yarn react-native bundle --entry-file index.js --bundle-output bundle.js
-  artifacts:
-    paths:
-      - ./android/app/build/
-      - ./android/app/src/main/assets/
