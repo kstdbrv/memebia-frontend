@@ -1,6 +1,11 @@
+import {Typography} from "@features/common/styles/typography"
 import {StyleSheet} from "react-native"
 
 export const styles = StyleSheet.create({
+  button: {
+    paddingVertical: 4,
+    ...Typography.Regular.None.Medium,
+  },
   container: {
     alignItems: "center",
     marginBottom: 33,

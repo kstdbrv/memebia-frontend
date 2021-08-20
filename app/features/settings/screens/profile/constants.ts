@@ -1,5 +1,8 @@
-export const firstName = "Juinal"
-export const lastName = null
-export const location = "Indonesia"
-export const email = "juinal@studioalva.co"
-export const language = "English"
+export const profilePersonalData = {
+  firstName: "Juinal",
+  lastName: null,
+  location: "Indonesia",
+  email: "juinal@studioalva.co",
+  language: "English",
+  profilePhoto: require("./images/profile-photo.png"),
+}

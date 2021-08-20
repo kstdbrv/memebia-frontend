@@ -1,4 +1,4 @@
-/* import "react-native-gesture-handler"
+import "react-native-gesture-handler"
 import * as React from "react"
 import {NavigationContainer} from "@react-navigation/native"
 import {createNativeStackNavigator} from "@react-navigation/native-stack"
@@ -51,4 +51,4 @@ function ObservableApp() {
   return <Observer render={App} />
 }
 
-export default ObservableApp */
+export default ObservableApp

@@ -1,82 +1,61 @@
 import React, {FC} from "react"
 import {styles} from "./profile.styles"
-import {SectionList} from "react-native"
-import {firstName, lastName, location, email, language} from "./constants"
+import {ScrollView} from "react-native"
+import {profilePersonalData} from "./constants"
 import {ProfileHeader} from "./components/profile-header"
 import {ItemProfile} from "./components/item-profile"
 import {ListProfileHeader} from "./components/list-profile-header"
-import {extractKeyFromItem} from "../utils/settings.utils"
 
 export const Profile: FC = (): JSX.Element => {
   /* eslint-disable @typescript-eslint/no-empty-function */
-  const PROFILE_SCREEN_DATA = [
-    {
-      data: [
-        {
-          title: "First name",
-          onPress: () => {},
-          profileItemData: firstName,
-          placeholder: "enter first name",
-          rightText: true,
-        },
-        {
-          title: "Last name",
-          onPress: () => {},
-          profileItemData: lastName,
-          placeholder: "enter last name",
-          rightText: true,
-        },
-        {
-          title: "Location",
-          onPress: () => {},
-          profileItemData: location,
-          placeholder: "enter your location",
-          rightText: true,
-        },
-      ],
-    },
-    {
-      title: "ACCOUNT INFORMATION",
-      data: [
-        {
-          title: "Email",
-          onPress: () => {},
-          profileItemData: email,
-          placeholder: "enter your email",
-          rightText: true,
-        },
-      ],
-    },
-    {
-      title: "INTERNATIONAL PREFERENCES",
-      data: [
-        {
-          title: "Language",
-          onPress: () => {},
-          profileItemData: language,
-          placeholder: "",
-          rightText: false,
-        },
-      ],
-    },
-  ]
+  const onPressFirstName = () => {}
+  const onPressLasrtName = () => {}
+  const onPressLocation = () => {}
+  const onPressEmail = () => {}
+  const onPressLanguage = () => {}
+
+  const {firstName, lastName, email, location, language, profilePhoto} = profilePersonalData
 
   return (
-    <SectionList
-      style={styles.container}
-      sections={PROFILE_SCREEN_DATA}
-      keyExtractor={extractKeyFromItem}
-      renderItem={({item}) => (
-        <ItemProfile
-          title={item.title}
-          onPress={item.onPress}
-          profileItemData={item.profileItemData}
-          placeholder={item.placeholder}
-          rightText={item.rightText}
-        />
-      )}
-      renderSectionHeader={({section: {title}}) => title && <ListProfileHeader title={title} />}
-      ListHeaderComponent={ProfileHeader}
-    />
+    <ScrollView style={styles.container} bounces={false}>
+      <ProfileHeader profilePhoto={profilePhoto} />
+      <ItemProfile
+        title="First name"
+        profileItemData={firstName}
+        placeholder="enter first name"
+        rightText
+        onPress={onPressFirstName}
+      />
+      <ItemProfile
+        title="Last name"
+        profileItemData={lastName}
+        placeholder="enter last name"
+        rightText
+        onPress={onPressLasrtName}
+      />
+      <ItemProfile
+        title="Location"
+        profileItemData={location}
+        placeholder="enter your location"
+        rightText
+        onPress={onPressLocation}
+      />
+      <ListProfileHeader title="ACCOUNT INFORMATION" />
+      <ItemProfile
+        title="Email"
+        profileItemData={email}
+        placeholder="enter your email"
+        rightText
+        onPress={onPressEmail}
+      />
+      <ListProfileHeader title="INTERNATIONAL PREFERENCES" />
+      <ItemProfile
+        title="Language"
+        profileItemData={language}
+        placeholder=""
+        rightText={false}
+        onPress={onPressLanguage}
+      />
+    </ScrollView>
   )
 }
