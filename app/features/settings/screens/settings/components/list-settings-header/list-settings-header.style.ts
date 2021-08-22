@@ -5,6 +5,7 @@ import {Typography} from "../../../../../common/styles/typography"
 export const styles = StyleSheet.create({
   container: {
     marginBottom: 12,
+    marginTop: 16,
   },
   title: {
     color: COLORS.INK.DARKEST,

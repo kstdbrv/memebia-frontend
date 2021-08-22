@@ -10,6 +10,8 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     flex: 1,
     paddingHorizontal: 24,
-    paddingTop: 32,
+  },
+  wrapper: {
+    flexBasis: 400,
   },
 })
