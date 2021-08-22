@@ -1,6 +1,7 @@
 export const COLORS = {
   INK: {
     LIGHTER: "#72777A",
+    DARKEST: "#090A0A",
   },
   PRIMARY: {
     BASE: "#6B4EFF",

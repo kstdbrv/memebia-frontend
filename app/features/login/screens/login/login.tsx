@@ -4,9 +4,11 @@ import {Button, Input} from "@features/common/components"
 import {loginStyles} from "./login.styles"
 import {KeyboardAvoidingView, Platform, ScrollView, Text} from "react-native"
 import {useLoginController} from "@features/login/screens/login/login.controller"
+import {ErrorMessage} from "./components/error-message"
 
 export function Login() {
-  const {emailField, passwordField, onLoginClick} = useLoginController()
+  const {emailField, passwordField, onLoginClick, formik} = useLoginController()
+  const {errors} = formik
   return (
     <SafeAreaView style={loginStyles.fillContainer}>
       <KeyboardAvoidingView
@@ -16,7 +18,7 @@ export function Login() {
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={loginStyles.scrollView}
           bounces={false}>
-          <Text style={loginStyles.inputLabel}>Email</Text>
+          <Text style={loginStyles.inputLabelEmail}>Email</Text>
           <Input
             ref={emailField.ref}
             placeholder="Enter your email"
@@ -26,9 +28,11 @@ export function Login() {
             onSubmitEditing={emailField.handleSubmitEditing}
             returnKeyType="next"
             autoCapitalize="none"
+            hasError={Boolean(errors.email)}
+            onChangeText={emailField.onChange}
           />
-          <Text style={loginStyles.inputLabel}>Password</Text>
-
+          {errors.email && <ErrorMessage title={errors.email} />}
+          <Text style={loginStyles.inputLabelPassword}>Password</Text>
           <Input
             ref={passwordField.ref}
             placeholder="Enter your password"
@@ -38,7 +42,10 @@ export function Login() {
             onSubmitEditing={passwordField.handleSubmitEditing}
             returnKeyType="done"
             autoCapitalize="none"
+            hasError={Boolean(errors.password)}
+            onChangeText={passwordField.onChange}
           />
+          {errors.password && <ErrorMessage title={errors.password} />}
           <Button
             onPress={onLoginClick}
             style={loginStyles.loginButton}
