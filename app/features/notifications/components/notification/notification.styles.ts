@@ -40,7 +40,6 @@ export const getNotificationStyles = (type: "warning" | "error" | "success") => 
   return StyleSheet.create({
     notificationCloseIcon: {
       height: 10,
-      // margin: 5,
       position: "absolute",
       resizeMode: "stretch",
       right: 15,
