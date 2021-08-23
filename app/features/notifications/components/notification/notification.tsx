@@ -23,15 +23,13 @@ const NotificationComponent: React.FC<NotificationProps> = ({type, message, onCl
   }).start()
 
   const onPress = () => {
-    if (onClose) {
-      Animated.timing(animatedShown, {
-        useNativeDriver: true,
-        toValue: 0,
-        duration: CLOSE_TIME,
-      }).start()
-      setTimeout(onClose, CLOSE_TIME)
-      if (timeoutId) clearTimeout(timeoutId)
-    }
+    Animated.timing(animatedShown, {
+      useNativeDriver: true,
+      toValue: 0,
+      duration: CLOSE_TIME,
+    }).start()
+    setTimeout(onClose, CLOSE_TIME / 2)
+    if (timeoutId) clearTimeout(timeoutId)
   }
 
   if (liveTime) {
