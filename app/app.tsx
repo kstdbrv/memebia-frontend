@@ -10,6 +10,7 @@ import {useEffect} from "react"
 import {Observer} from "mobx-react-lite"
 import {Presenter} from "@features/notifications/components/presenter"
 import {notificationsStore} from "@features/notifications/stores/notifications-store"
+import {Discoverer} from "@features/discoverer/screens/discoverer/discoverer"
 
 const RootStack = createNativeStackNavigator()
 
@@ -35,14 +36,24 @@ export function App() {
               backgroundColor: COLORS.WHITE,
             },
           }}>
-          <RootStack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerTitle: "Log in",
-              headerShadowVisible: false,
-            }}
-          />
+          {authStore.isLogged ? (
+            <RootStack.Screen
+              name="Discoverer"
+              component={Discoverer}
+              options={{
+                headerTitle: "Home",
+              }}
+            />
+          ) : (
+            <RootStack.Screen
+              name="Login"
+              component={Login}
+              options={{
+                headerTitle: "Log in",
+                headerShadowVisible: true,
+              }}
+            />
+          )}
         </RootStack.Navigator>
       </NavigationContainer>
       <Presenter store={notificationsStore} />
