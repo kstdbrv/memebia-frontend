@@ -1,5 +1,3 @@
-import {TextStyle} from "react-native"
-
 const FONT_FAMILY_BOLD = "Inter-Bold" as const
 const FONT_FAMILY_MEDIUM = "Inter-Medium" as const
 const FONT_FAMILY_REGULAR = "Inter-Regular" as const
