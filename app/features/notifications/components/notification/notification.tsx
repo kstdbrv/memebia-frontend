@@ -3,9 +3,10 @@ import {Animated, Image, Pressable, Text} from "react-native"
 import {getNotificationStyles} from "@features/notifications/components/notification/notification.styles"
 import {NotificationProps} from "@features/notifications/components/notification/notification.types"
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const CLOSE_ICON = require("../../../../../assets/icons/close.png")
 const OPEN_TIME = 1000
 const CLOSE_TIME = 1000
-const CLOSE_ICON = "https://image.flaticon.com/icons/png/512/1828/1828747.png"
 
 const NotificationComponent: React.FC<NotificationProps> = ({
   type,
@@ -22,34 +23,30 @@ const NotificationComponent: React.FC<NotificationProps> = ({
     outputRange: [-50, 0],
   })
 
-  Animated.timing(animatedShown, {
-    useNativeDriver: true,
-    toValue: 1,
-    duration: OPEN_TIME,
-  }).start()
-
-  const closeNotification = () => {
+  const closeNotification = (timeoutID: null | ReturnType<typeof setTimeout>) => {
     Animated.timing(animatedShown, {
       useNativeDriver: true,
       toValue: 0,
       duration: CLOSE_TIME,
     }).start()
-    setTimeout(onClose, CLOSE_TIME / 2)
+    if (onClose) {
+      setTimeout(() => onClose(timeoutID), CLOSE_TIME / 2)
+    }
   }
 
   useEffect(() => {
+    Animated.timing(animatedShown, {
+      useNativeDriver: true,
+      toValue: 1,
+      duration: OPEN_TIME,
+    }).start()
     if (liveTime) {
-      timeoutId = setTimeout(closeNotification, liveTime)
+      timeoutId = setTimeout(() => closeNotification(null), liveTime)
     }
     return () => {
       if (timeoutId) clearTimeout(timeoutId)
     }
-  })
-
-  const onPress = () => {
-    closeNotification()
-    if (timeoutId) clearTimeout(timeoutId)
-  }
+  }, [])
 
   return (
     <Animated.View
@@ -58,12 +55,12 @@ const NotificationComponent: React.FC<NotificationProps> = ({
         {opacity: animatedShown},
         {transform: [{translateY: animatedTop}]},
       ]}>
-      <Pressable onPress={onPress} style={styles.pressContainer}>
+      <Pressable onPress={() => closeNotification(timeoutId)} style={styles.pressContainer}>
         {icon && <Image source={icon} style={styles.notificationIcon} />}
         <Text style={styles.notificationText}>
           {type}! {message}
         </Text>
-        <Image source={{uri: CLOSE_ICON}} style={styles.notificationCloseIcon} />
+        <Image source={CLOSE_ICON} style={styles.notificationCloseIcon} />
       </Pressable>
     </Animated.View>
   )

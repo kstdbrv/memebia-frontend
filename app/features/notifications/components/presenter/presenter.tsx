@@ -8,14 +8,17 @@ import {styles} from "@features/notifications/components/presenter/presenter.sty
 const PresenterComponent = observer(({store}) => {
   const notifications = store.getNotifications
 
-  const onClose = (index: number, notification: NotificationProps) => {
+  const onClose = (
+    notification: NotificationProps,
+    timeoutID?: null | ReturnType<typeof setTimeout>,
+  ) => {
     if (notification.onClose) notification.onClose()
-    store.deleteNotification(index)
+    store.deleteNotification(notification.id, timeoutID)
   }
 
   return (
     <View style={styles.presenterContainer}>
-      {notifications?.map((notification: NotificationProps, index: number) => {
+      {notifications?.map((notification: NotificationProps) => {
         return (
           <Notification
             type={notification.type}
@@ -24,7 +27,9 @@ const PresenterComponent = observer(({store}) => {
             key={notification.id.toString()}
             id={notification.id}
             liveTime={notification.liveTime}
-            onClose={() => onClose(index, notification)}
+            onClose={(timeoutID?: null | ReturnType<typeof setTimeout>) =>
+              onClose(notification, timeoutID)
+            }
           />
         )
       })}
