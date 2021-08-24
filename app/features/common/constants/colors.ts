@@ -1,5 +1,6 @@
 export const COLORS = {
   INK: {
+    LIGHT: "#6C7072",
     LIGHTER: "#72777A",
     DARKEST: "#090A0A",
   },
@@ -17,6 +18,8 @@ export const COLORS = {
     LIGHT: "#e3e5e5",
     DARK: "#979C9E",
     BASE: "#CDCFD0",
+    LIGHTER: "#F2F4F5",
+    LIGHTEST: "#F7F9FA",
   },
   TRANSPARENT: "transparent",
   WHITE: "#fff",

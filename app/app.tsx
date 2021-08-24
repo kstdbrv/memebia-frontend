@@ -8,6 +8,7 @@ import {SafeAreaProvider} from "react-native-safe-area-context"
 import {useAuthStore} from "@features/auth/stores/auth/auth.hooks"
 import {useEffect} from "react"
 import {Observer} from "mobx-react-lite"
+import {Discoverer} from "@features/discoverer/screens/discoverer/discoverer"
 
 const RootStack = createNativeStackNavigator()
 
@@ -33,14 +34,24 @@ export function App() {
               backgroundColor: COLORS.WHITE,
             },
           }}>
-          <RootStack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerTitle: "Log in",
-              headerShadowVisible: false,
-            }}
-          />
+          {authStore.isLogged ? (
+            <RootStack.Screen
+              name="Discoverer"
+              component={Discoverer}
+              options={{
+                headerTitle: "Home",
+              }}
+            />
+          ) : (
+            <RootStack.Screen
+              name="Login"
+              component={Login}
+              options={{
+                headerTitle: "Log in",
+                headerShadowVisible: true,
+              }}
+            />
+          )}
         </RootStack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

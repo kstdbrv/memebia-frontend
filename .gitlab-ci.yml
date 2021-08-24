@@ -1,0 +1,16 @@
+image: node:12.18.3
+stages:
+  - build
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+build:android:package:
+  stage: build
+  only:
+    - merge_requests
+  script:
+    - yarn install --frozen-lockfile
+    - yarn react-native bundle --entry-file index.js --bundle-output bundle.js

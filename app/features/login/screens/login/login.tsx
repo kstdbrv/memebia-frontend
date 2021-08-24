@@ -21,6 +21,8 @@ export function Login() {
           <Input
             ref={emailField.ref}
             placeholder="Enter your email"
+            value={emailField.value}
+            onChange={emailField.onChange}
             style={loginStyles.input}
             keyboardType="email-address"
             textContentType="emailAddress"
@@ -37,6 +39,8 @@ export function Login() {
             placeholder="Enter your password"
             style={loginStyles.input}
             secureTextEntry={true}
+            value={passwordField.value}
+            onChange={passwordField.onChange}
             textContentType="password"
             onSubmitEditing={passwordField.handleSubmitEditing}
             returnKeyType="done"
@@ -56,3 +60,5 @@ export function Login() {
     </SafeAreaView>
   )
 }
+
+export const Login = observer(LoginScreen)
