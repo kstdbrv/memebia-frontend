@@ -23,14 +23,14 @@ const NotificationComponent: React.FC<NotificationProps> = ({
     outputRange: [-50, 0],
   })
 
-  const closeNotification = (timeoutID: null | ReturnType<typeof setTimeout>) => {
+  const closeNotification = () => {
     Animated.timing(animatedShown, {
       useNativeDriver: true,
       toValue: 0,
       duration: CLOSE_TIME,
     }).start()
     if (onClose) {
-      setTimeout(() => onClose(timeoutID), CLOSE_TIME / 2)
+      setTimeout(() => onClose(timeoutId), CLOSE_TIME / 2)
     }
   }
 
@@ -41,7 +41,7 @@ const NotificationComponent: React.FC<NotificationProps> = ({
       duration: OPEN_TIME,
     }).start()
     if (liveTime) {
-      timeoutId = setTimeout(() => closeNotification(null), liveTime)
+      timeoutId = setTimeout(closeNotification, liveTime)
     }
     return () => {
       if (timeoutId) clearTimeout(timeoutId)
@@ -55,7 +55,7 @@ const NotificationComponent: React.FC<NotificationProps> = ({
         {opacity: animatedShown},
         {transform: [{translateY: animatedTop}]},
       ]}>
-      <Pressable onPress={() => closeNotification(timeoutId)} style={styles.pressContainer}>
+      <Pressable onPress={closeNotification} style={styles.pressContainer}>
         {icon && <Image source={icon} style={styles.notificationIcon} />}
         <Text style={styles.notificationText}>
           {type}! {message}
