@@ -5,8 +5,9 @@ import {loginStyles} from "./login.styles"
 import {KeyboardAvoidingView, Platform, ScrollView, Text} from "react-native"
 import {useLoginController} from "@features/login/screens/login/login.controller"
 import {ErrorMessage} from "./components/error-message"
+import {observer} from "mobx-react-lite"
 
-export function Login() {
+function LoginScreen() {
   const {emailField, passwordField, onLoginClick, errors} = useLoginController()
   return (
     <SafeAreaView style={loginStyles.fillContainer}>
