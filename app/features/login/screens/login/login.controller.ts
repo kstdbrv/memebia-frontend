@@ -34,6 +34,8 @@ export function useLoginController() {
     validationSchema: loginValidationSchema,
   })
 
+  const {errors} = formik
+
   const focusPasswordField = useCallback(() => {
     passwordInputRef.current?.focus()
   }, [passwordInputRef])
@@ -61,6 +63,6 @@ export function useLoginController() {
     passwordField,
     onLoginClick,
     isLoading,
-    formik,
+    errors,
   }
 }

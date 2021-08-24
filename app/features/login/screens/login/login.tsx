@@ -7,8 +7,7 @@ import {useLoginController} from "@features/login/screens/login/login.controller
 import {ErrorMessage} from "./components/error-message"
 
 export function Login() {
-  const {emailField, passwordField, onLoginClick, formik} = useLoginController()
-  const {errors} = formik
+  const {emailField, passwordField, onLoginClick, errors} = useLoginController()
   return (
     <SafeAreaView style={loginStyles.fillContainer}>
       <KeyboardAvoidingView
