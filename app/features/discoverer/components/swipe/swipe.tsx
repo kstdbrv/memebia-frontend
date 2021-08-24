@@ -29,6 +29,9 @@ export const Swipe: FC<SwipePropsType> = ({memes}) => {
   const swipe = useRef(new Animated.ValueXY()).current
   const tiltSign = useRef(new Animated.Value(1)).current
 
+  console.log(memes)
+  console.log(memesToDisplay)
+
   useEffect(() => {
     // todo
     if (!memesToDisplay.length) {
@@ -77,21 +80,23 @@ export const Swipe: FC<SwipePropsType> = ({memes}) => {
 
   return (
     <View style={styles.swipeContainer}>
-      {memesToDisplay.map(({name, source}, index) => {
-        const isFirst = index === 0
-        const dragHandlers = isFirst ? panResponder.panHandlers : {}
+      {memesToDisplay
+        .map(({name, source}, index) => {
+          const isFirst = index === 0
+          const dragHandlers = isFirst ? panResponder.panHandlers : {}
 
-        return (
-          <MemeCard
-            key={name}
-            source={source}
-            isFirst={isFirst}
-            swipe={swipe}
-            tiltSign={tiltSign}
-            {...dragHandlers}
-          />
-        )
-      })}
+          return (
+            <MemeCard
+              key={name}
+              source={source}
+              isFirst={isFirst}
+              swipe={swipe}
+              tiltSign={tiltSign}
+              {...dragHandlers}
+            />
+          )
+        })
+        .reverse()}
     </View>
   )
 }
