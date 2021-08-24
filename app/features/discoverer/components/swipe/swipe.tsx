@@ -29,9 +29,6 @@ export const Swipe: FC<SwipePropsType> = ({memes}) => {
   const swipe = useRef(new Animated.ValueXY()).current
   const tiltSign = useRef(new Animated.Value(1)).current
 
-  console.log(memes)
-  console.log(memesToDisplay)
-
   useEffect(() => {
     // todo
     if (!memesToDisplay.length) {
