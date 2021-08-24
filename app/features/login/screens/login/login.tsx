@@ -4,8 +4,9 @@ import {Button, Input} from "@features/common/components"
 import {loginStyles} from "./login.styles"
 import {KeyboardAvoidingView, Platform, ScrollView, Text} from "react-native"
 import {useLoginController} from "@features/login/screens/login/login.controller"
+import {observer} from "mobx-react-lite"
 
-export function Login() {
+function LoginScreen() {
   const {emailField, passwordField, onLoginClick} = useLoginController()
   return (
     <SafeAreaView style={loginStyles.fillContainer}>
@@ -20,6 +21,8 @@ export function Login() {
           <Input
             ref={emailField.ref}
             placeholder="Enter your email"
+            value={emailField.value}
+            onChange={emailField.onChange}
             style={loginStyles.input}
             keyboardType="email-address"
             textContentType="emailAddress"
@@ -34,6 +37,8 @@ export function Login() {
             placeholder="Enter your password"
             style={loginStyles.input}
             secureTextEntry={true}
+            value={passwordField.value}
+            onChange={passwordField.onChange}
             textContentType="password"
             onSubmitEditing={passwordField.handleSubmitEditing}
             returnKeyType="done"
@@ -50,3 +55,5 @@ export function Login() {
     </SafeAreaView>
   )
 }
+
+export const Login = observer(LoginScreen)
