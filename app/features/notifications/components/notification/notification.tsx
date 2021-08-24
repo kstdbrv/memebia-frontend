@@ -1,4 +1,4 @@
-import React, {useRef} from "react"
+import React, {useEffect, useRef} from "react"
 import {Animated, Image, Pressable, Text} from "react-native"
 import {getNotificationStyles} from "@features/notifications/components/notification/notification.styles"
 import {NotificationProps} from "@features/notifications/components/notification/notification.types"
@@ -37,13 +37,18 @@ const NotificationComponent: React.FC<NotificationProps> = ({
     setTimeout(onClose, CLOSE_TIME / 2)
   }
 
+  useEffect(() => {
+    if (liveTime) {
+      timeoutId = setTimeout(closeNotification, liveTime)
+    }
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  })
+
   const onPress = () => {
     closeNotification()
     if (timeoutId) clearTimeout(timeoutId)
-  }
-
-  if (liveTime) {
-    timeoutId = setTimeout(closeNotification, liveTime)
   }
 
   return (
