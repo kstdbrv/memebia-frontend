@@ -1,6 +1,7 @@
 import {action, computed, makeObservable, observable} from "mobx"
 import uuid from "react-native-uuid"
 import {NotificationProps} from "@features/notifications/components/notification/notification.types"
+import {ImageSourcePropType} from "react-native"
 
 export class NotificationsStore {
   @observable
@@ -19,6 +20,7 @@ export class NotificationsStore {
   addNotification(payload: {
     type: "warning" | "error" | "success"
     message: string
+    icon?: ImageSourcePropType
     onClose?: () => void
     liveTime?: number
   }): void {

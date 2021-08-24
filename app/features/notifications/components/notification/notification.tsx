@@ -7,7 +7,13 @@ const OPEN_TIME = 1000
 const CLOSE_TIME = 1000
 const CLOSE_ICON = "https://image.flaticon.com/icons/png/512/1828/1828747.png"
 
-const NotificationComponent: React.FC<NotificationProps> = ({type, message, onClose, liveTime}) => {
+const NotificationComponent: React.FC<NotificationProps> = ({
+  type,
+  message,
+  icon,
+  onClose,
+  liveTime,
+}) => {
   const styles = getNotificationStyles(type)
   let timeoutId: null | ReturnType<typeof setTimeout> = null
   const animatedShown = useRef(new Animated.Value(0)).current
@@ -22,18 +28,22 @@ const NotificationComponent: React.FC<NotificationProps> = ({type, message, onCl
     duration: OPEN_TIME,
   }).start()
 
-  const onPress = () => {
+  const closeNotification = () => {
     Animated.timing(animatedShown, {
       useNativeDriver: true,
       toValue: 0,
       duration: CLOSE_TIME,
     }).start()
     setTimeout(onClose, CLOSE_TIME / 2)
+  }
+
+  const onPress = () => {
+    closeNotification()
     if (timeoutId) clearTimeout(timeoutId)
   }
 
   if (liveTime) {
-    timeoutId = setTimeout(onPress, liveTime)
+    timeoutId = setTimeout(closeNotification, liveTime)
   }
 
   return (
@@ -44,6 +54,7 @@ const NotificationComponent: React.FC<NotificationProps> = ({type, message, onCl
         {transform: [{translateY: animatedTop}]},
       ]}>
       <Pressable onPress={onPress} style={styles.pressContainer}>
+        {icon && <Image source={icon} style={styles.notificationIcon} />}
         <Text style={styles.notificationText}>
           {type}! {message}
         </Text>

@@ -40,10 +40,8 @@ export const getNotificationStyles = (type: "warning" | "error" | "success") => 
   return StyleSheet.create({
     notificationCloseIcon: {
       height: 10,
-      position: "absolute",
+      margin: 10,
       resizeMode: "stretch",
-      right: 15,
-      top: 15,
       width: 10,
     },
     notificationContainer: {
@@ -54,14 +52,22 @@ export const getNotificationStyles = (type: "warning" | "error" | "success") => 
       width: "98%",
       ...viewStyle,
     },
+    notificationIcon: {
+      alignItems: "center",
+      height: 20,
+      margin: 10,
+      resizeMode: "stretch",
+      width: 20,
+    },
     notificationText: {
-      paddingHorizontal: 30,
+      paddingHorizontal: 10,
       paddingVertical: 10,
       ...Typography.Small.Normal.Regular,
       ...textStyle,
     },
     pressContainer: {
-      alignItems: "center",
+      flexDirection: "row",
+      justifyContent: "space-between",
       width: "100%",
     },
   })

@@ -20,6 +20,7 @@ const PresenterComponent = observer(({store}) => {
           <Notification
             type={notification.type}
             message={notification.message}
+            icon={notification.icon}
             key={notification.id.toString()}
             id={notification.id}
             liveTime={notification.liveTime}
