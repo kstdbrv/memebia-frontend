@@ -4,7 +4,7 @@ import {MemesResponse} from "@features/discoverer/services/memes/memes.types"
 export class MemesService {
   constructor(private readonly httpService: HttpService = backendServiceSingleton) {}
 
-  async memes(): Promise<MemesResponse> {
+  async next(): Promise<MemesResponse> {
     const response = await this.httpService.get<MemesResponse>("/memes/next")
     return response.data
   }

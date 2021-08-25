@@ -1,5 +1,5 @@
 import React, {useState, useRef, useCallback, useEffect, FC} from "react"
-import {View, Animated, PanResponder, ImageSourcePropType} from "react-native"
+import {View, Animated, PanResponder, ImageURISource} from "react-native"
 
 import {MemeCard} from "../meme-card"
 import {styles} from "./swipe.styles"
@@ -14,8 +14,8 @@ import {
 import {ACTIONS_OFFSET, HEIGHT_CARD} from "../meme-card/meme-card.constants"
 
 type MemeType = {
-  name: string
-  source: ImageSourcePropType
+  id: string
+  imageUrl: ImageURISource["uri"]
 }
 
 type MemesType = MemeType[]
@@ -78,14 +78,14 @@ export const Swipe: FC<SwipePropsType> = ({memes}) => {
   return (
     <View style={styles.swipeContainer}>
       {memesToDisplay
-        .map(({name, source}, index) => {
+        .map(({id, imageUrl}, index) => {
           const isFirst = index === 0
           const dragHandlers = isFirst ? panResponder.panHandlers : {}
 
           return (
             <MemeCard
-              key={name}
-              source={source}
+              key={id}
+              source={{uri: imageUrl}}
               isFirst={isFirst}
               swipe={swipe}
               tiltSign={tiltSign}

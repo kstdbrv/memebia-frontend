@@ -1,4 +1,4 @@
-interface MemeResponse {
+export interface MemeResponse {
   id: string
   createdAt: string
   updatedAt: string
@@ -10,5 +10,5 @@ interface MemeResponse {
 }
 
 export interface MemesResponse {
-  memes?: Array<MemeResponse>
+  memes: Array<MemeResponse>
 }

@@ -1,5 +1,5 @@
 import React, {useCallback, FC} from "react"
-import {Image, Animated, ImageSourcePropType, GestureResponderHandlers} from "react-native"
+import {Image, View, Animated, ImageURISource, GestureResponderHandlers} from "react-native"
 
 import {Choice} from "../choice"
 import {styles} from "./meme-card.styles"
@@ -13,7 +13,7 @@ import {
 } from "./meme-card.constants"
 
 type MemeCardPropsType = GestureResponderHandlers & {
-  source: ImageSourcePropType
+  source: ImageURISource
   isFirst: boolean
   swipe: Animated.ValueXY
   tiltSign: Animated.Value
@@ -58,7 +58,9 @@ export const MemeCard: FC<MemeCardPropsType> = ({source, isFirst, swipe, tiltSig
 
   return (
     <Animated.View style={[styles.memeCardContainer, isFirst && animatedCardStyled]} {...rest}>
-      <Image style={styles.image} source={source} />
+      <View style={styles.memeCardInner}>
+        <Image style={styles.image} source={source} />
+      </View>
       {isFirst && renderChoice()}
     </Animated.View>
   )
