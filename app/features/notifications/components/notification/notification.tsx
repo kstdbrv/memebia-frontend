@@ -17,13 +17,12 @@ const NotificationComponent: React.FC<NotificationProps> = ({type, message, icon
   })
 
   const closeNotification = () => {
-    Animated.timing(animatedShown, {
-      useNativeDriver: true,
-      toValue: 0,
-      duration: CLOSE_TIME,
-    }).start()
     if (onClose) {
-      setTimeout(onClose, CLOSE_TIME / 2)
+      Animated.timing(animatedShown, {
+        useNativeDriver: true,
+        toValue: 0,
+        duration: CLOSE_TIME,
+      }).start(() => onClose())
     }
   }
 
