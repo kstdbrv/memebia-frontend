@@ -22,7 +22,7 @@ const NotificationComponent: React.FC<NotificationProps> = ({type, message, icon
         useNativeDriver: true,
         toValue: 0,
         duration: CLOSE_TIME,
-      }).start(() => onClose())
+      }).start(onClose)
     }
   }
 

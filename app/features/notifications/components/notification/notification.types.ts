@@ -4,7 +4,7 @@ export type NotificationProps = {
   type: "warning" | "error" | "success"
   message: string
   icon?: ImageSourcePropType
-  onClose?: (timeoutID?: null | ReturnType<typeof setTimeout>) => void
+  onClose?: () => void
   liveTime?: number
   id: string | number[]
   timeoutId?: ReturnType<typeof setTimeout>
