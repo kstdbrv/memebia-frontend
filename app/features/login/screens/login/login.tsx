@@ -4,10 +4,11 @@ import {Button, Input} from "@features/common/components"
 import {loginStyles} from "./login.styles"
 import {KeyboardAvoidingView, Platform, ScrollView, Text} from "react-native"
 import {useLoginController} from "@features/login/screens/login/login.controller"
+import {ErrorMessage} from "./components/error-message"
 import {observer} from "mobx-react-lite"
 
 function LoginScreen() {
-  const {emailField, passwordField, onLoginClick} = useLoginController()
+  const {emailField, passwordField, onLoginClick, errors} = useLoginController()
   return (
     <SafeAreaView style={loginStyles.fillContainer}>
       <KeyboardAvoidingView
@@ -17,7 +18,7 @@ function LoginScreen() {
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={loginStyles.scrollView}
           bounces={false}>
-          <Text style={loginStyles.inputLabel}>Email</Text>
+          <Text style={loginStyles.inputLabelEmail}>Email</Text>
           <Input
             ref={emailField.ref}
             placeholder="Enter your email"
@@ -29,9 +30,11 @@ function LoginScreen() {
             onSubmitEditing={emailField.handleSubmitEditing}
             returnKeyType="next"
             autoCapitalize="none"
+            hasError={Boolean(errors.email)}
+            onChangeText={emailField.onChange}
           />
-          <Text style={loginStyles.inputLabel}>Password</Text>
-
+          {errors.email && <ErrorMessage title={errors.email} />}
+          <Text style={loginStyles.inputLabelPassword}>Password</Text>
           <Input
             ref={passwordField.ref}
             placeholder="Enter your password"
@@ -43,7 +46,10 @@ function LoginScreen() {
             onSubmitEditing={passwordField.handleSubmitEditing}
             returnKeyType="done"
             autoCapitalize="none"
+            hasError={Boolean(errors.password)}
+            onChangeText={passwordField.onChange}
           />
+          {errors.password && <ErrorMessage title={errors.password} />}
           <Button
             onPress={onLoginClick}
             style={loginStyles.loginButton}
