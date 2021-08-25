@@ -8,15 +8,8 @@ const CLOSE_ICON = require("../../../../../assets/images/close.png")
 const OPEN_TIME = 1000
 const CLOSE_TIME = 1000
 
-const NotificationComponent: React.FC<NotificationProps> = ({
-  type,
-  message,
-  icon,
-  onClose,
-  liveTime,
-}) => {
+const NotificationComponent: React.FC<NotificationProps> = ({type, message, icon, onClose}) => {
   const styles = getNotificationStyles(type)
-  let timeoutId: null | ReturnType<typeof setTimeout> = null
   const animatedShown = useRef(new Animated.Value(0)).current
   const animatedTop = animatedShown.interpolate({
     inputRange: [0, 1],
@@ -30,7 +23,7 @@ const NotificationComponent: React.FC<NotificationProps> = ({
       duration: CLOSE_TIME,
     }).start()
     if (onClose) {
-      setTimeout(() => onClose(timeoutId), CLOSE_TIME / 2)
+      setTimeout(onClose, CLOSE_TIME / 2)
     }
   }
 
@@ -40,12 +33,6 @@ const NotificationComponent: React.FC<NotificationProps> = ({
       toValue: 1,
       duration: OPEN_TIME,
     }).start()
-    if (liveTime) {
-      timeoutId = setTimeout(closeNotification, liveTime)
-    }
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId)
-    }
   }, [])
 
   return (

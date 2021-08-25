@@ -9,14 +9,6 @@ import {notificationsStore} from "@features/notifications/stores/notifications-s
 const PresenterComponent: React.FC = () => {
   const notifications = notificationsStore.getNotifications
 
-  const onClose = (
-    notification: NotificationProps | null,
-    timeoutID?: null | ReturnType<typeof setTimeout>,
-  ) => {
-    if (notification?.onClose) notification.onClose()
-    if (notification) notificationsStore.deleteNotification(notification.id, timeoutID)
-  }
-
   return (
     <View style={styles.presenterContainer}>
       {notifications?.map((notification: NotificationProps | null) => {
@@ -28,9 +20,8 @@ const PresenterComponent: React.FC = () => {
               icon={notification.icon}
               key={notification.id.toString()}
               id={notification.id}
-              liveTime={notification.liveTime}
-              onClose={(timeoutID?: null | ReturnType<typeof setTimeout>) =>
-                onClose(notification, timeoutID)
+              onClose={() =>
+                notificationsStore.deleteNotification(notification.id, notification.timeoutId)
               }
             />
           )

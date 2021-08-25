@@ -24,21 +24,22 @@ export class NotificationsStore {
     onClose?: () => void
     liveTime?: number
   }): void {
-    this.notifications.push({...payload, id: uuid.v4()})
+    const id = uuid.v4()
+    let timeoutId
+    if (payload.liveTime)
+      timeoutId = setTimeout(() => this.deleteNotification(id), payload.liveTime)
+    this.notifications.push({...payload, id, timeoutId})
   }
 
   @action
-  deleteNotification(
-    id: string | number[],
-    timeoutID?: null | ReturnType<typeof setTimeout>,
-  ): void {
-    const temp = [...this.notifications]
-    const index = temp.findIndex(notification => notification?.id === id)
-    if (index > -1) {
-      temp.splice(index, 1)
-      this.notifications = [...temp]
+  deleteNotification(id: string | number[], timeoutID?: ReturnType<typeof setTimeout>): void {
+    const index = this.notifications.findIndex(notification => notification?.id === id)
+    if (timeoutID) {
+      clearTimeout(timeoutID)
     }
-    if (timeoutID) clearTimeout(timeoutID)
+    const deletedNotification = this.notifications[index]
+    if (deletedNotification && deletedNotification.onClose) deletedNotification.onClose()
+    this.notifications.splice(index, 1)
   }
 }
 

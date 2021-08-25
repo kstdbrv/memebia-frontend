@@ -7,4 +7,5 @@ export type NotificationProps = {
   onClose?: (timeoutID?: null | ReturnType<typeof setTimeout>) => void
   liveTime?: number
   id: string | number[]
+  timeoutId?: ReturnType<typeof setTimeout>
 }
