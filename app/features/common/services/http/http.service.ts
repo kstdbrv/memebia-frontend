@@ -4,14 +4,12 @@ export class HttpService {
   constructor(private readonly axiosService = AxiosLibrary.create()) {}
 
   get<T>(url: string): Promise<AxiosResponse<T>> {
-    return this.axiosService
-      .get(url)
-      .then(response => response.data)
-      .catch(error => console.log(error))
+    return this.axiosService.get<T>(url)
   }
 
   post<T>(url: string, data: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.axiosService.post<T>(url, data, config)
+    console.log(data)
+    return this.axiosService.post<T>(url, JSON.stringify(data), config)
   }
 
   patch<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
@@ -56,5 +54,8 @@ export class HttpService {
 export const backendServiceSingleton = new HttpService(
   AxiosLibrary.create({
     baseURL: "https://api.memebia.com",
+    headers: {
+      "Content-type": "application/json",
+    },
   }),
 )
