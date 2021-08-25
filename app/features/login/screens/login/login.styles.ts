@@ -7,11 +7,17 @@ export const loginStyles = StyleSheet.create({
     flex: 1,
   },
   input: {
-    marginBottom: 24,
+    color: COLORS.INK.DARKEST,
+    ...Typography.Regular.None.Regular,
   },
-  inputLabel: {
+  inputLabelEmail: {
     ...Typography.Regular.None.Medium,
     marginBottom: 12,
+  },
+  inputLabelPassword: {
+    marginBottom: 12,
+    marginTop: 36,
+    ...Typography.Regular.None.Medium,
   },
   loginButton: {
     marginBottom: 20,
