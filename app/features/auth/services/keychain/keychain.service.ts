@@ -16,9 +16,9 @@ export class KeychainService {
     return jsonTokens ? JSON.parse(jsonTokens) : null
   }
 
-  async getRefreshToken(): Promise<string> {
+  async getRefreshToken(): Promise<string | null> {
     const jsonTokens = await AsyncStorage.getItem(STORAGE_KEY)
-    return jsonTokens ? JSON.parse(jsonTokens).refreshToken : "none"
+    return jsonTokens ? JSON.parse(jsonTokens).refreshToken : null
   }
 
   async clear(): Promise<void> {

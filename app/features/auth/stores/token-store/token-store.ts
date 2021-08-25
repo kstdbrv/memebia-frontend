@@ -42,8 +42,12 @@ export class TokensStore {
 
   @action
   async restoreTokens(): Promise<boolean> {
-    await this.refreshTokens()
-    return !!this.accessToken
+    try {
+      await this.refreshTokens()
+      return !!this.accessToken
+    } catch (e) {
+      return false
+    }
   }
 
   @action
