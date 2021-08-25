@@ -77,21 +77,23 @@ export const Swipe: FC<SwipePropsType> = ({memes}) => {
 
   return (
     <View style={styles.swipeContainer}>
-      {memesToDisplay.map(({name, source}, index) => {
-        const isFirst = index === 0
-        const dragHandlers = isFirst ? panResponder.panHandlers : {}
+      {memesToDisplay
+        .map(({name, source}, index) => {
+          const isFirst = index === 0
+          const dragHandlers = isFirst ? panResponder.panHandlers : {}
 
-        return (
-          <MemeCard
-            key={name}
-            source={source}
-            isFirst={isFirst}
-            swipe={swipe}
-            tiltSign={tiltSign}
-            {...dragHandlers}
-          />
-        )
-      })}
+          return (
+            <MemeCard
+              key={name}
+              source={source}
+              isFirst={isFirst}
+              swipe={swipe}
+              tiltSign={tiltSign}
+              {...dragHandlers}
+            />
+          )
+        })
+        .reverse()}
     </View>
   )
 }
