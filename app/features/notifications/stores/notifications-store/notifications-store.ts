@@ -28,7 +28,10 @@ export class NotificationsStore {
   }
 
   @action
-  deleteNotification(id: string, timeoutID: null | ReturnType<typeof setTimeout>): void {
+  deleteNotification(
+    id: string | number[],
+    timeoutID?: null | ReturnType<typeof setTimeout>,
+  ): void {
     const temp = [...this.notifications]
     const index = temp.findIndex(notification => notification?.id === id)
     if (index > -1) {

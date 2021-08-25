@@ -4,7 +4,7 @@ import {getNotificationStyles} from "@features/notifications/components/notifica
 import {NotificationProps} from "@features/notifications/components/notification/notification.types"
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const CLOSE_ICON = require("../../../../../assets/icons/close.png")
+const CLOSE_ICON = require("../../../../../assets/images/close.png")
 const OPEN_TIME = 1000
 const CLOSE_TIME = 1000
 

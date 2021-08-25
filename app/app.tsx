@@ -8,9 +8,8 @@ import {SafeAreaProvider} from "react-native-safe-area-context"
 import {useAuthStore} from "@features/auth/stores/auth/auth.hooks"
 import {useEffect} from "react"
 import {Observer} from "mobx-react-lite"
-import {Presenter} from "@features/notifications/components/presenter"
-import {notificationsStore} from "@features/notifications/stores/notifications-store"
 import {Discoverer} from "@features/discoverer/screens/discoverer/discoverer"
+import {Presenter} from "@features/notifications/components/presenter"
 
 const RootStack = createNativeStackNavigator()
 
@@ -56,7 +55,7 @@ export function App() {
           )}
         </RootStack.Navigator>
       </NavigationContainer>
-      <Presenter store={notificationsStore} />
+      <Presenter />
     </SafeAreaProvider>
   )
 }
