@@ -1,5 +1,6 @@
 import React, {useState, useRef, useCallback, useEffect, FC} from "react"
 import {View, Animated, PanResponder, ImageURISource} from "react-native"
+import {observer} from "mobx-react-lite"
 
 import {MemeCard} from "../meme-card"
 import {styles} from "./swipe.styles"
@@ -24,13 +25,12 @@ type SwipePropsType = {
   memes: MemesType
 }
 
-export const Swipe: FC<SwipePropsType> = ({memes}) => {
+const SwipeScreen: FC<SwipePropsType> = ({memes}) => {
   const [memesToDisplay, setMemesToDisplay] = useState(memes)
   const swipe = useRef(new Animated.ValueXY()).current
   const tiltSign = useRef(new Animated.Value(1)).current
 
   useEffect(() => {
-    // todo
     if (!memesToDisplay.length) {
       setMemesToDisplay(memes)
     }
@@ -97,3 +97,5 @@ export const Swipe: FC<SwipePropsType> = ({memes}) => {
     </View>
   )
 }
+
+export const Swipe = observer(SwipeScreen)
