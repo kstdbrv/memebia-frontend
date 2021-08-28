@@ -26,8 +26,9 @@ export class NotificationsStore {
   }): void {
     const id = uuid.v4()
     let timeoutId
-    if (payload.liveTime)
+    if (payload.liveTime) {
       timeoutId = setTimeout(() => this.deleteNotification(id), payload.liveTime)
+    }
     this.notifications.push({...payload, id, timeoutId})
   }
 
@@ -38,7 +39,9 @@ export class NotificationsStore {
       clearTimeout(timeoutID)
     }
     const deletedNotification = this.notifications[index]
-    if (deletedNotification && deletedNotification.onClose) deletedNotification.onClose()
+    if (deletedNotification && deletedNotification.onClose) {
+      deletedNotification.onClose()
+    }
     this.notifications.splice(index, 1)
   }
 }
