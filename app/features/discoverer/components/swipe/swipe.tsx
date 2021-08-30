@@ -1,6 +1,5 @@
 import React, {useState, useRef, useCallback, useEffect, FC} from "react"
-import {View, Animated, PanResponder, ImageURISource} from "react-native"
-import {observer} from "mobx-react-lite"
+import {View, Animated, PanResponder} from "react-native"
 
 import {MemeCard} from "../meme-card"
 import {styles} from "./swipe.styles"
@@ -13,25 +12,29 @@ import {
   NEGATIVE_TOUCH_HEIGHT,
 } from "./constants"
 import {ACTIONS_OFFSET, HEIGHT_CARD} from "../meme-card/meme-card.constants"
+import {MemeResponse} from "@features/discoverer/services/memes/memes.types"
 
-type MemeType = {
-  id: string
-  imageUrl: ImageURISource["uri"]
+type SwipeComponentPropsType = {
+  memes: MemeResponse[]
+  submitRatedMemesAndRequestNewMemesAndCleanRatedMemes: () => Promise<void>
+  addAMemeToTheCategoryLikedOrNot: (id: number, reaction: Animated.ValueXY["x"]) => void
 }
 
-type MemesType = MemeType[]
-
-type SwipePropsType = {
-  memes: MemesType
-}
-
-const SwipeScreen: FC<SwipePropsType> = ({memes}) => {
+export const SwipeComponent: FC<SwipeComponentPropsType> = ({
+  memes,
+  submitRatedMemesAndRequestNewMemesAndCleanRatedMemes,
+  addAMemeToTheCategoryLikedOrNot,
+}) => {
   const [memesToDisplay, setMemesToDisplay] = useState(memes)
   const swipe = useRef(new Animated.ValueXY()).current
   const tiltSign = useRef(new Animated.Value(1)).current
 
   useEffect(() => {
-    if (!memesToDisplay.length) {
+    const memesCount = memesToDisplay.length
+
+    submitRatedMemesAndRequestNewMemesAndCleanRatedMemes()
+
+    if (!memesCount) {
       setMemesToDisplay(memes)
     }
   }, [memesToDisplay.length])
@@ -85,6 +88,8 @@ const SwipeScreen: FC<SwipePropsType> = ({memes}) => {
           return (
             <MemeCard
               key={id}
+              id={id}
+              addAMemeToTheCategoryLikedOrNot={addAMemeToTheCategoryLikedOrNot}
               source={{uri: imageUrl}}
               isFirst={isFirst}
               swipe={swipe}
@@ -97,5 +102,3 @@ const SwipeScreen: FC<SwipePropsType> = ({memes}) => {
     </View>
   )
 }
-
-export const Swipe = observer(SwipeScreen)

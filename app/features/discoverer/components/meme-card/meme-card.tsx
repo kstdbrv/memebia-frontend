@@ -14,12 +14,22 @@ import {
 
 type MemeCardPropsType = GestureResponderHandlers & {
   source: ImageURISource
+  id: number
+  addAMemeToTheCategoryLikedOrNot: (id: number, xAxisSwipeValue: Animated.ValueXY["x"]) => void
   isFirst: boolean
   swipe: Animated.ValueXY
   tiltSign: Animated.Value
 }
 
-export const MemeCard: FC<MemeCardPropsType> = ({source, isFirst, swipe, tiltSign, ...rest}) => {
+export const MemeCard: FC<MemeCardPropsType> = ({
+  source,
+  id,
+  addAMemeToTheCategoryLikedOrNot,
+  isFirst,
+  swipe,
+  tiltSign,
+  ...rest
+}) => {
   const rotate = Animated.multiply(swipe.x, tiltSign).interpolate({
     inputRange: [-ACTIONS_OFFSET, 0, ACTIONS_OFFSET],
     outputRange: ROTATE_RANGE,
@@ -41,6 +51,8 @@ export const MemeCard: FC<MemeCardPropsType> = ({source, isFirst, swipe, tiltSig
     transform: [...swipe.getTranslateTransform(), {rotate}],
   }
 
+  const xAxisSwipeValue = swipe.x
+
   const renderChoice = useCallback(() => {
     return (
       <>
@@ -57,7 +69,10 @@ export const MemeCard: FC<MemeCardPropsType> = ({source, isFirst, swipe, tiltSig
   }, [likeOpacity, nopeOpacity])
 
   return (
-    <Animated.View style={[styles.memeCardContainer, isFirst && animatedCardStyled]} {...rest}>
+    <Animated.View
+      style={[styles.memeCardContainer, isFirst && animatedCardStyled]}
+      {...rest}
+      onTouchEnd={() => addAMemeToTheCategoryLikedOrNot(id, xAxisSwipeValue)}>
       <View style={styles.memeCardInner}>
         <Image style={styles.image} source={source} />
       </View>

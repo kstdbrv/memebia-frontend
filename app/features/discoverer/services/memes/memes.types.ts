@@ -1,5 +1,5 @@
 export interface MemeResponse {
-  id: string
+  id: number
   createdAt: string
   updatedAt: string
   imageId: string
@@ -10,5 +10,10 @@ export interface MemeResponse {
 }
 
 export interface MemesResponse {
-  memes: Array<MemeResponse>
+  memes: MemeResponse[]
+}
+
+export interface RateRequest {
+  likedMemes: number[]
+  dislikedMemes: number[]
 }

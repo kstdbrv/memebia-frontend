@@ -9,6 +9,10 @@ export class MemesStore {
   @observable
   memes: MemeResponse[] | [] = []
 
+  likedMemes: number[] | [] = []
+
+  dislikedMemes: number[] | [] = []
+
   constructor(private readonly memesService: MemesService = memesServiceSingleton) {
     makeObservable(this)
   }
@@ -18,6 +22,19 @@ export class MemesStore {
     runInAction(() => {
       this.memes = newTenMemes.memes
     })
+  }
+
+  addMemeToLikedCategory(id: number) {
+    this.likedMemes.push(id)
+  }
+
+  addMemeToDislikedCategory(id: number) {
+    this.dislikedMemes.push(id)
+  }
+
+  cleanAllCategories() {
+    this.likedMemes = []
+    this.dislikedMemes = []
   }
 }
 
