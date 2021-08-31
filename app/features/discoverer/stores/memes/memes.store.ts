@@ -7,11 +7,11 @@ import {MemeResponse} from "@features/discoverer/services/memes/memes.types"
 
 export class MemesStore {
   @observable
-  memes: MemeResponse[] | [] = []
+  memes: MemeResponse[] = []
 
-  likedMemes: number[] | [] = []
+  private likedMemes: string[] = []
 
-  dislikedMemes: number[] | [] = []
+  private dislikedMemes: string[] = []
 
   constructor(private readonly memesService: MemesService = memesServiceSingleton) {
     makeObservable(this)
@@ -19,20 +19,30 @@ export class MemesStore {
 
   async requestNewMemes(): Promise<void> {
     const newTenMemes = await this.memesService.next()
+
     runInAction(() => {
       this.memes = newTenMemes.memes
     })
   }
 
-  addMemeToLikedCategory(id: number) {
+  submitRatedMemes = async (): Promise<void> => {
+    await this.memesService.rate({
+      likedMemes: this.likedMemes,
+      dislikedMemes: this.dislikedMemes,
+    })
+
+    this.cleanAllCategories()
+  }
+
+  addMemeToLikedCategory = (id: string): void => {
     this.likedMemes.push(id)
   }
 
-  addMemeToDislikedCategory(id: number) {
+  addMemeToDislikedCategory = (id: string): void => {
     this.dislikedMemes.push(id)
   }
 
-  cleanAllCategories() {
+  private cleanAllCategories = (): void => {
     this.likedMemes = []
     this.dislikedMemes = []
   }

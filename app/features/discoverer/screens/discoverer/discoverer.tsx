@@ -1,61 +1,22 @@
-import {View, Animated} from "react-native"
-import React, {useEffect} from "react"
+import {View} from "react-native"
+import React from "react"
 import {useAuthStore} from "@features/auth/stores/auth"
 import {Button} from "@features/common/components"
 import {SwipeComponent} from "../../components/swipe"
-import {memesStoreSingleton} from "@features/discoverer/stores/memes/memes.store"
-import {memesServiceSingleton} from "@features/discoverer/services/memes/memes.service"
 import {observer} from "mobx-react-lite"
+import {useMemesStore} from "@features/discoverer/stores/memes"
+import {useDiscovererController} from "@features/discoverer/screens/discoverer/discoverer.controller"
 
 const DiscovererScreen = observer(() => {
   const authStore = useAuthStore()
+  const memesStore = useMemesStore()
 
-  useEffect(() => {
-    memesStoreSingleton.requestNewMemes()
-  }, [])
-
-  const submitRatedMemes = async () => {
-    await memesServiceSingleton.rate({
-      likedMemes: memesStoreSingleton.likedMemes,
-      dislikedMemes: memesStoreSingleton.dislikedMemes,
-    })
-  }
-
-  const requestNewMemes = async () => {
-    await memesStoreSingleton.requestNewMemes()
-  }
-
-  const cleanArrayWithRatedMemes = () => {
-    memesStoreSingleton.cleanAllCategories()
-  }
-
-  const submitRatedMemesAndRequestNewMemesAndCleanRatedMemes = async () => {
-    await submitRatedMemes()
-    await requestNewMemes()
-    cleanArrayWithRatedMemes()
-  }
-
-  const addAMemeToTheCategoryLikedOrNot = (id: number, reaction: Animated.ValueXY["x"]) => {
-    const reactionValue: number = reaction.__getValue()
-
-    if (reactionValue > 100) {
-      memesStoreSingleton.addMemeToDislikedCategory(id)
-    }
-    if (reactionValue < -100) {
-      memesStoreSingleton.addMemeToLikedCategory(id)
-    }
-  }
+  const {onLike, onDislike} = useDiscovererController()
 
   return (
     <View>
       <Button color="primary" title="Logout" onPress={() => authStore.logout()} />
-      <SwipeComponent
-        memes={memesStoreSingleton.memes}
-        submitRatedMemesAndRequestNewMemesAndCleanRatedMemes={
-          submitRatedMemesAndRequestNewMemesAndCleanRatedMemes
-        }
-        addAMemeToTheCategoryLikedOrNot={addAMemeToTheCategoryLikedOrNot}
-      />
+      <SwipeComponent images={memesStore.memes} onLike={onLike} onDislike={onDislike} />
     </View>
   )
 })
