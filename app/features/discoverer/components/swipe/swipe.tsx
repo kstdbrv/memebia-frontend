@@ -16,26 +16,18 @@ import {MemeResponse} from "@features/discoverer/services/memes/memes.types"
 
 type SwipeComponentPropsType = {
   images: MemeResponse[]
-  isNewImagesUploaded: boolean
   onLike: (id: string) => void
   onDislike: (id: string) => void
 }
 
-export const SwipeComponent: FC<SwipeComponentPropsType> = ({
-  images,
-  isNewImagesUploaded,
-  onLike,
-  onDislike,
-}) => {
+export const SwipeComponent: FC<SwipeComponentPropsType> = ({images, onLike, onDislike}) => {
   const [imagesToDisplay, setImagesToDisplay] = useState(images)
   const swipe = useRef(new Animated.ValueXY()).current
   const tiltSign = useRef(new Animated.Value(1)).current
 
   useEffect(() => {
-    if (!imagesToDisplay.length && isNewImagesUploaded) {
-      setImagesToDisplay(images)
-    }
-  }, [imagesToDisplay.length, isNewImagesUploaded])
+    setImagesToDisplay(images)
+  }, [images])
 
   const addAMemeToTheCategoryLikedOrNot = (direction: number, id: string) => {
     if (direction > 0) {
@@ -91,14 +83,14 @@ export const SwipeComponent: FC<SwipeComponentPropsType> = ({
     <View style={styles.swipeContainer}>
       {imagesToDisplay
         .map(({id, imageUrl}, index) => {
-          const isFirst = index === 0
-          const dragHandlers = isFirst ? panResponder.panHandlers : {}
+          const isFront = index === 0
+          const dragHandlers = isFront ? panResponder.panHandlers : {}
 
           return (
             <MemeCard
               key={id}
               source={{uri: imageUrl}}
-              isFirst={isFirst}
+              isFront={isFront}
               swipe={swipe}
               tiltSign={tiltSign}
               {...dragHandlers}

@@ -1,7 +1,9 @@
 import {useState, useEffect, useCallback} from "react"
 import {useMemesStore} from "@features/discoverer/stores/memes"
+import {useAuthStore} from "@features/auth/stores/auth"
 
 export function useDiscovererController() {
+  const authStore = useAuthStore()
   const memesStore = useMemesStore()
   const [rateCounter, setRateCounter] = useState<number>(0)
 
@@ -10,12 +12,13 @@ export function useDiscovererController() {
   }, [])
 
   useEffect(() => {
-    rateMeme()
-
-    if (rateCounter === 10) {
-      memesStore.requestNewMemes()
-      setRateCounter(0)
-    }
+    ;(async function () {
+      if (rateCounter === 10) {
+        await memesStore.submitRatedMemes()
+        await memesStore.requestNewMemes()
+        setRateCounter(0)
+      }
+    })()
   }, [rateCounter])
 
   const onLike = useCallback(
@@ -34,13 +37,10 @@ export function useDiscovererController() {
     [setRateCounter],
   )
 
-  const rateMeme = async () => {
-    await memesStore.submitRatedMemes()
-  }
-
   return {
     onLike,
     onDislike,
-    rateMeme,
+    authStore,
+    memesStore,
   }
 }

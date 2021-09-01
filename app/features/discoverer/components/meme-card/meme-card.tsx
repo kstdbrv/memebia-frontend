@@ -14,12 +14,12 @@ import {
 
 type MemeCardPropsType = GestureResponderHandlers & {
   source: ImageURISource
-  isFirst: boolean
+  isFront: boolean
   swipe: Animated.ValueXY
   tiltSign: Animated.Value
 }
 
-export const MemeCard: FC<MemeCardPropsType> = ({source, isFirst, swipe, tiltSign, ...rest}) => {
+export const MemeCard: FC<MemeCardPropsType> = ({source, isFront, swipe, tiltSign, ...rest}) => {
   const rotate = Animated.multiply(swipe.x, tiltSign).interpolate({
     inputRange: [-ACTIONS_OFFSET, 0, ACTIONS_OFFSET],
     outputRange: ROTATE_RANGE,
@@ -57,11 +57,11 @@ export const MemeCard: FC<MemeCardPropsType> = ({source, isFirst, swipe, tiltSig
   }, [likeOpacity, nopeOpacity])
 
   return (
-    <Animated.View style={[styles.memeCardContainer, isFirst && animatedCardStyled]} {...rest}>
+    <Animated.View style={[styles.memeCardContainer, isFront && animatedCardStyled]} {...rest}>
       <View style={styles.memeCardInner}>
         <Image style={styles.image} source={source} />
       </View>
-      {isFirst && renderChoice()}
+      {isFront && renderChoice()}
     </Animated.View>
   )
 }
