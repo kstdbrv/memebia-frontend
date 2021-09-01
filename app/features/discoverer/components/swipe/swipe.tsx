@@ -1,5 +1,5 @@
 import React, {useState, useRef, useCallback, useEffect, FC} from "react"
-import {View, Animated, PanResponder, ImageSourcePropType} from "react-native"
+import {View, Animated, PanResponder} from "react-native"
 
 import {MemeCard} from "../meme-card"
 import {styles} from "./swipe.styles"
@@ -12,29 +12,31 @@ import {
   NEGATIVE_TOUCH_HEIGHT,
 } from "./constants"
 import {ACTIONS_OFFSET, HEIGHT_CARD} from "../meme-card/meme-card.constants"
+import {MemeResponse} from "@features/discoverer/services/memes/memes.types"
 
-type MemeType = {
-  name: string
-  source: ImageSourcePropType
+type SwipeComponentPropsType = {
+  images: MemeResponse[]
+  onLike: (id: string) => void
+  onDislike: (id: string) => void
 }
 
-type MemesType = MemeType[]
-
-type SwipePropsType = {
-  memes: MemesType
-}
-
-export const Swipe: FC<SwipePropsType> = ({memes}) => {
-  const [memesToDisplay, setMemesToDisplay] = useState(memes)
+export const SwipeComponent: FC<SwipeComponentPropsType> = ({images, onLike, onDislike}) => {
+  const [imagesToDisplay, setImagesToDisplay] = useState(images)
   const swipe = useRef(new Animated.ValueXY()).current
   const tiltSign = useRef(new Animated.Value(1)).current
 
   useEffect(() => {
-    // todo
-    if (!memesToDisplay.length) {
-      setMemesToDisplay(memes)
+    setImagesToDisplay(images)
+  }, [images])
+
+  const addAMemeToTheCategoryLikedOrNot = (direction: number, id: string) => {
+    if (direction > 0) {
+      onLike(id)
     }
-  }, [memesToDisplay.length])
+    if (direction < 0) {
+      onDislike(id)
+    }
+  }
 
   const panResponder = PanResponder.create({
     onMoveShouldSetPanResponder: () => true,
@@ -49,6 +51,8 @@ export const Swipe: FC<SwipePropsType> = ({memes}) => {
       const isActionActive = Math.abs(dx) > ACTIONS_OFFSET
 
       if (isActionActive) {
+        addAMemeToTheCategoryLikedOrNot(direction, imagesToDisplay[0].id)
+
         Animated.timing(swipe, {
           duration: DURATION,
           toValue: {
@@ -71,22 +75,22 @@ export const Swipe: FC<SwipePropsType> = ({memes}) => {
   })
 
   const removeTopCard = useCallback(() => {
-    setMemesToDisplay(prevState => prevState.slice(1))
+    setImagesToDisplay(prevState => prevState.slice(1))
     swipe.setValue({x: 0, y: 0})
   }, [swipe])
 
   return (
     <View style={styles.swipeContainer}>
-      {memesToDisplay
-        .map(({name, source}, index) => {
-          const isFirst = index === 0
-          const dragHandlers = isFirst ? panResponder.panHandlers : {}
+      {imagesToDisplay
+        .map(({id, imageUrl}, index) => {
+          const isFront = index === 0
+          const dragHandlers = isFront ? panResponder.panHandlers : {}
 
           return (
             <MemeCard
-              key={name}
-              source={source}
-              isFirst={isFirst}
+              key={id}
+              source={{uri: imageUrl}}
+              isFront={isFront}
               swipe={swipe}
               tiltSign={tiltSign}
               {...dragHandlers}
