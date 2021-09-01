@@ -13,7 +13,7 @@ export function useDiscovererController() {
 
   useEffect(() => {
     ;(async function () {
-      if (rateCounter === 10) {
+      if (rateCounter === 5) {
         await memesStore.submitRatedMemes()
         await memesStore.requestNewMemes()
         setRateCounter(0)
