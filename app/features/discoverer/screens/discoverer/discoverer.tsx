@@ -16,7 +16,12 @@ const DiscovererScreen = observer(() => {
   return (
     <View>
       <Button color="primary" title="Logout" onPress={() => authStore.logout()} />
-      <SwipeComponent images={memesStore.memes} onLike={onLike} onDislike={onDislike} />
+      <SwipeComponent
+        images={memesStore.memes}
+        onLike={onLike}
+        onDislike={onDislike}
+        isNewImagesUploaded={memesStore.isNewMemesUploaded}
+      />
     </View>
   )
 })

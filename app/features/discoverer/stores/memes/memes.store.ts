@@ -9,6 +9,8 @@ export class MemesStore {
   @observable
   memes: MemeResponse[] = []
 
+  isNewMemesUploaded = false
+
   private likedMemes: string[] = []
 
   private dislikedMemes: string[] = []
@@ -18,10 +20,12 @@ export class MemesStore {
   }
 
   async requestNewMemes(): Promise<void> {
+    this.isNewMemesUploaded = false
     const newTenMemes = await this.memesService.next()
 
     runInAction(() => {
       this.memes = newTenMemes.memes
+      this.isNewMemesUploaded = true
     })
   }
 

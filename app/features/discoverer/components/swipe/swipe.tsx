@@ -16,20 +16,26 @@ import {MemeResponse} from "@features/discoverer/services/memes/memes.types"
 
 type SwipeComponentPropsType = {
   images: MemeResponse[]
+  isNewImagesUploaded: boolean
   onLike: (id: string) => void
   onDislike: (id: string) => void
 }
 
-export const SwipeComponent: FC<SwipeComponentPropsType> = ({images, onLike, onDislike}) => {
+export const SwipeComponent: FC<SwipeComponentPropsType> = ({
+  images,
+  isNewImagesUploaded,
+  onLike,
+  onDislike,
+}) => {
   const [imagesToDisplay, setImagesToDisplay] = useState(images)
   const swipe = useRef(new Animated.ValueXY()).current
   const tiltSign = useRef(new Animated.Value(1)).current
 
   useEffect(() => {
-    if (!imagesToDisplay.length) {
+    if (!imagesToDisplay.length && isNewImagesUploaded) {
       setImagesToDisplay(images)
     }
-  }, [imagesToDisplay.length])
+  }, [imagesToDisplay.length, isNewImagesUploaded])
 
   const addAMemeToTheCategoryLikedOrNot = (direction: number, id: string) => {
     if (direction > 0) {
