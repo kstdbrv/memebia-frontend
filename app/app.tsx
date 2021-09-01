@@ -9,6 +9,7 @@ import {useAuthStore} from "@features/auth/stores/auth/auth.hooks"
 import {useEffect} from "react"
 import {Observer} from "mobx-react-lite"
 import {Discoverer} from "@features/discoverer/screens/discoverer/discoverer"
+import {Signup} from "@features/signup/screens/signup/signup"
 
 const RootStack = createNativeStackNavigator()
 
@@ -43,14 +44,24 @@ export function App() {
               }}
             />
           ) : (
-            <RootStack.Screen
-              name="Login"
-              component={Login}
-              options={{
-                headerTitle: "Log in",
-                headerShadowVisible: true,
-              }}
-            />
+            <>
+              <RootStack.Screen
+                name="Login"
+                component={Login}
+                options={{
+                  headerTitle: "Log in",
+                  headerShadowVisible: false,
+                }}
+              />
+              <RootStack.Screen
+                name="Signup"
+                component={Signup}
+                options={{
+                  headerTitle: "Sign up",
+                  headerShadowVisible: false,
+                }}
+              />
+            </>
           )}
         </RootStack.Navigator>
       </NavigationContainer>
