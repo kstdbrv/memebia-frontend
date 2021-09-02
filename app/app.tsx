@@ -11,7 +11,17 @@ import {Observer} from "mobx-react-lite"
 import {Discoverer} from "@features/discoverer/screens/discoverer/discoverer"
 import {Signup} from "@features/signup/screens/signup/signup"
 
-const RootStack = createNativeStackNavigator()
+export type RootStackParamList = {
+  Login: undefined
+  Signup: undefined
+  Discoverer: undefined
+}
+
+export const SCREEN_NAMES = {
+  SIGN_UP: "Signup",
+} as const
+
+const RootStack = createNativeStackNavigator<RootStackParamList>()
 
 export function App() {
   const authStore = useAuthStore()
