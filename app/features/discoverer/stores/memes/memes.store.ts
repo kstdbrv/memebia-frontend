@@ -17,8 +17,8 @@ export class MemesStore {
     makeObservable(this)
   }
 
-  async requestNewMemes(): Promise<void> {
-    const newTenMemes = await this.memesService.next()
+  async requestNewMemes(totalCount: number, offset: number): Promise<void> {
+    const newTenMemes = await this.memesService.next(totalCount, offset)
 
     runInAction(() => {
       this.memes = newTenMemes.memes

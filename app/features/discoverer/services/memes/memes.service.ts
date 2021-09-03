@@ -4,8 +4,10 @@ import {MemesResponse, RateRequest} from "@features/discoverer/services/memes/me
 export class MemesService {
   constructor(private readonly httpService: HttpService = backendServiceSingleton) {}
 
-  async next(): Promise<MemesResponse> {
-    const response = await this.httpService.get<MemesResponse>("/memes/next")
+  async next(totalCount: number, offset: number): Promise<MemesResponse> {
+    const response = await this.httpService.get<MemesResponse>(
+      `/memes/next?total=${totalCount}&offset=${offset}`,
+    )
     return response.data
   }
 
