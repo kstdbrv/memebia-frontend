@@ -6,9 +6,17 @@ import {KeyboardAvoidingView, Platform, ScrollView, Text} from "react-native"
 import {useLoginController} from "@features/login/screens/login/login.controller"
 import {observer} from "mobx-react-lite"
 import {SignupInvite} from "./components/signup-invite"
+import {StackNavigationProp} from "@react-navigation/stack"
+import {RootStackParamList, SCREEN_NAMES} from "../../../../app"
+import {useNavigation} from "@react-navigation/native"
+
+type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList>
 
 function LoginScreen() {
   const {emailField, passwordField, onLoginClick, errors} = useLoginController()
+
+  const navigation = useNavigation<SignupScreenNavigationProp>()
+  const onSignupClick = () => navigation.navigate(SCREEN_NAMES.SIGN_UP)
   return (
     <SafeAreaView style={loginStyles.fillContainer}>
       <KeyboardAvoidingView
@@ -50,7 +58,7 @@ function LoginScreen() {
             onChangeText={passwordField.onChange}
           />
           {errors.password && <ErrorMessage title={errors.password} />}
-          <SignupInvite />
+          <SignupInvite onSignupClick={onSignupClick} />
           <Button
             onPress={onLoginClick}
             style={loginStyles.loginButton}
