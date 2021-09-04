@@ -26,4 +26,5 @@ export const COLORS = {
   GREEN: {
     LIGHT: "#4CD471",
   },
+  BLACK: "#000000",
 }
