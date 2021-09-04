@@ -33,7 +33,6 @@ export function useSignupController() {
     onSubmit: handleSubmit,
     validationSchema: signupValidationSchema,
   })
-  console.log("formik", formik)
   const {errors} = formik
 
   const focusPasswordField = useCallback(() => {
