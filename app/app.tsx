@@ -8,7 +8,13 @@ import {SafeAreaProvider} from "react-native-safe-area-context"
 import {useAuthStore} from "@features/auth/stores/auth/auth.hooks"
 import {useEffect} from "react"
 import {Observer} from "mobx-react-lite"
-import {Discoverer} from "@features/discoverer/screens/discoverer/discoverer"
+import {TabsNavigator} from "@features/tabs-navigator"
+
+export const SCREEN_NAMES = {
+  SIGN_UP: "Signup",
+  HOME: "Home",
+  PROFILE: "Profile",
+} as const
 
 const RootStack = createNativeStackNavigator()
 
@@ -37,20 +43,22 @@ export function App() {
           {authStore.isLogged ? (
             <RootStack.Screen
               name="Discoverer"
-              component={Discoverer}
+              component={TabsNavigator}
               options={{
                 headerTitle: "Home",
               }}
             />
           ) : (
-            <RootStack.Screen
-              name="Login"
-              component={Login}
-              options={{
-                headerTitle: "Log in",
-                headerShadowVisible: true,
-              }}
-            />
+            <>
+              <RootStack.Screen
+                name="Login"
+                component={Login}
+                options={{
+                  headerTitle: "Log in",
+                  headerShadowVisible: false,
+                }}
+              />
+            </>
           )}
         </RootStack.Navigator>
       </NavigationContainer>
