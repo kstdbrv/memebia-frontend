@@ -82,13 +82,14 @@ export const SwipeComponent: FC<SwipeComponentPropsType> = ({images, onLike, onD
   return (
     <View style={styles.swipeContainer}>
       {imagesToDisplay
-        .map(({id, imageUrl}, index) => {
+        .map(({id, imageUrl, text}, index) => {
           const isFront = index === 0
           const dragHandlers = isFront ? panResponder.panHandlers : {}
 
           return (
             <MemeCard
               key={id}
+              text={text}
               source={{uri: imageUrl}}
               isFront={isFront}
               swipe={swipe}
