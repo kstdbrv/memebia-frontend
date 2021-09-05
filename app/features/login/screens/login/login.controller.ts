@@ -3,12 +3,20 @@ import {TextInput} from "react-native"
 import {useFormik} from "formik"
 import {useAuthStore} from "@features/auth/stores/auth/auth.hooks"
 import * as yup from "yup"
+import {StackNavigationProp} from "@react-navigation/stack"
+import {RootStackParamList, SCREEN_NAMES} from "../../../../app"
+import {useNavigation} from "@react-navigation/native"
+
+type SignupScreenNavigationProp = StackNavigationProp<RootStackParamList>
 
 export function useLoginController() {
   const emailInputRef = useRef<TextInput>(null)
   const passwordInputRef = useRef<TextInput>(null)
   const authStore = useAuthStore()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const navigation = useNavigation<SignupScreenNavigationProp>()
+  const onSignupClick = () => navigation.navigate(SCREEN_NAMES.SIGN_UP)
 
   const handleSubmit = async (payload: {email: string; password: string}) => {
     setIsLoading(false)
@@ -64,5 +72,6 @@ export function useLoginController() {
     onLoginClick,
     isLoading,
     errors,
+    onSignupClick,
   }
 }
