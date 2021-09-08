@@ -35,6 +35,14 @@ export class AuthStore {
       this.isLogged = false
     })
   }
+
+  async signup(payload: {email: string; password: string}): Promise<void> {
+    const tokens = await this.authService.signup(payload)
+    await this.tokensStore.saveTokens(tokens)
+    runInAction(() => {
+      this.isLogged = true
+    })
+  }
 }
 
 export const authStoreSingleton = new AuthStore()

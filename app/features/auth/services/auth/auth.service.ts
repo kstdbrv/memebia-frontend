@@ -18,6 +18,11 @@ export class AuthService {
     const response = await this.httpService.post<LoginResponse>("/auth/login", payload)
     return response.data
   }
+
+  async signup(payload: LoginRequest): Promise<LoginResponse> {
+    const response = await this.httpService.post<LoginResponse>("/auth/signup", payload)
+    return response.data
+  }
 }
 
 export const authServiceSingleton = new AuthService()
