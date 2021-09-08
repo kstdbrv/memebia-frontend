@@ -8,19 +8,22 @@ import {SafeAreaProvider} from "react-native-safe-area-context"
 import {useAuthStore} from "@features/auth/stores/auth/auth.hooks"
 import {useEffect} from "react"
 import {Observer} from "mobx-react-lite"
+import {TabsNavigator} from "@features/tabs-navigator"
 import {Discoverer} from "@features/discoverer/screens/discoverer/discoverer"
 import {Signup} from "@features/signup/screens/signup/signup"
 import {Presenter} from "@features/notifications/components/presenter"
+
+export const SCREEN_NAMES = {
+  SIGN_UP: "Signup",
+  HOME: "Home",
+  PROFILE: "Profile",
+} as const
 
 export type RootStackParamList = {
   Login: undefined
   Signup: undefined
   Discoverer: undefined
 }
-
-export const SCREEN_NAMES = {
-  SIGN_UP: "Signup",
-} as const
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
 
@@ -49,9 +52,10 @@ export function App() {
           {authStore.isLogged ? (
             <RootStack.Screen
               name="Discoverer"
-              component={Discoverer}
+              component={TabsNavigator}
               options={{
                 headerTitle: "Home",
+                headerShown: false,
               }}
             />
           ) : (
