@@ -5,6 +5,7 @@ import {profilePersonalData} from "./constants"
 import {ProfileHeader} from "./components/profile-header"
 import {ItemProfile} from "./components/item-profile"
 import {ListProfileHeader} from "./components/list-profile-header"
+import {SafeAreaView} from "react-native-safe-area-context"
 
 export const Profile: FC = (): JSX.Element => {
   /* eslint-disable @typescript-eslint/no-empty-function */
@@ -17,45 +18,47 @@ export const Profile: FC = (): JSX.Element => {
   const {firstName, lastName, email, location, language, profilePhoto} = profilePersonalData
 
   return (
-    <ScrollView style={styles.container} bounces={false}>
-      <ProfileHeader profilePhoto={profilePhoto} />
-      <ItemProfile
-        title="First name"
-        profileItemData={firstName}
-        placeholder="enter first name"
-        rightText
-        onPress={onPressFirstName}
-      />
-      <ItemProfile
-        title="Last name"
-        profileItemData={lastName}
-        placeholder="enter last name"
-        rightText
-        onPress={onPressLasrtName}
-      />
-      <ItemProfile
-        title="Location"
-        profileItemData={location}
-        placeholder="enter your location"
-        rightText
-        onPress={onPressLocation}
-      />
-      <ListProfileHeader title="ACCOUNT INFORMATION" />
-      <ItemProfile
-        title="Email"
-        profileItemData={email}
-        placeholder="enter your email"
-        rightText
-        onPress={onPressEmail}
-      />
-      <ListProfileHeader title="INTERNATIONAL PREFERENCES" />
-      <ItemProfile
-        title="Language"
-        profileItemData={language}
-        placeholder=""
-        rightText={false}
-        onPress={onPressLanguage}
-      />
-    </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.container} bounces={false}>
+        <ProfileHeader profilePhoto={profilePhoto} />
+        <ItemProfile
+          title="First name"
+          profileItemData={firstName}
+          placeholder="enter first name"
+          rightText
+          onPress={onPressFirstName}
+        />
+        <ItemProfile
+          title="Last name"
+          profileItemData={lastName}
+          placeholder="enter last name"
+          rightText
+          onPress={onPressLasrtName}
+        />
+        <ItemProfile
+          title="Location"
+          profileItemData={location}
+          placeholder="enter your location"
+          rightText
+          onPress={onPressLocation}
+        />
+        <ListProfileHeader title="ACCOUNT INFORMATION" />
+        <ItemProfile
+          title="Email"
+          profileItemData={email}
+          placeholder="enter your email"
+          rightText
+          onPress={onPressEmail}
+        />
+        <ListProfileHeader title="INTERNATIONAL PREFERENCES" />
+        <ItemProfile
+          title="Language"
+          profileItemData={language}
+          placeholder=""
+          rightText={false}
+          onPress={onPressLanguage}
+        />
+      </ScrollView>
+    </SafeAreaView>
   )
 }
