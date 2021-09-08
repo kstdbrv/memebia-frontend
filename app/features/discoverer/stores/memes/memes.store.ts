@@ -3,7 +3,7 @@ import {
   MemesService,
   memesServiceSingleton,
 } from "@features/discoverer/services/memes/memes.service"
-import {MemeResponse} from "@features/discoverer/services/memes/memes.types"
+import {MemeResponse, NextQueryParams} from "@features/discoverer/services/memes/memes.types"
 
 export class MemesStore {
   @observable
@@ -17,8 +17,8 @@ export class MemesStore {
     makeObservable(this)
   }
 
-  async requestNewMemes(): Promise<void> {
-    const newTenMemes = await this.memesService.next()
+  async requestNewMemes(payload: NextQueryParams): Promise<void> {
+    const newTenMemes = await this.memesService.next(payload)
 
     runInAction(() => {
       this.memes = newTenMemes.memes

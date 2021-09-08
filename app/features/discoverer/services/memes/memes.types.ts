@@ -13,6 +13,11 @@ export interface MemesResponse {
   memes: MemeResponse[]
 }
 
+export type NextQueryParams = {
+  totalCount: number
+  offset: number
+}
+
 export interface RateRequest {
   likedMemes: string[]
   dislikedMemes: string[]

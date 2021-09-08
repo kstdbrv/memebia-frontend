@@ -1,7 +1,7 @@
 import {useState, useEffect, useCallback} from "react"
 import {useMemesStore} from "@features/discoverer/stores/memes"
 import {useAuthStore} from "@features/auth/stores/auth"
-import {RATE_COUNT} from "@features/discoverer/screens/discoverer/constants"
+import {RATE_COUNT, TOTAL_COUNT} from "@features/discoverer/screens/discoverer/constants"
 
 export function useDiscovererController() {
   const authStore = useAuthStore()
@@ -9,14 +9,14 @@ export function useDiscovererController() {
   const [rateCounter, setRateCounter] = useState<number>(0)
 
   useEffect(() => {
-    memesStore.requestNewMemes()
+    memesStore.requestNewMemes({totalCount: TOTAL_COUNT, offset: TOTAL_COUNT / 2})
   }, [])
 
   useEffect(() => {
     ;(async function () {
       if (rateCounter === RATE_COUNT) {
         await memesStore.submitRatedMemes()
-        await memesStore.requestNewMemes()
+        await memesStore.requestNewMemes({totalCount: TOTAL_COUNT, offset: TOTAL_COUNT / 2})
         setRateCounter(0)
       }
     })()
